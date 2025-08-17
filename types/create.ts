@@ -9,6 +9,7 @@ export type BlockType = 'text' | 'code' | 'notice' | 'list';
 export interface BaseBlock {
   id: string;
   type: BlockType;
+  order: number;
 }
 
 export interface TextBlock extends BaseBlock {

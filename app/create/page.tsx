@@ -25,61 +25,66 @@ import {
   CodeLanguage,
   NoticeType
 } from '@/types/create';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import createGuideApi from './createGuideApi';
 
 const generateId = () => Math.random().toString(36).substr(2, 9);
 
-const initialContent: TabContent = {
-  overview: [
-    {
-      id: generateId(),
-      type: 'text',
-      content: 'Welcome to the Documentation Editor',
-      hierarchy: 'h1'
-    } as TextBlock
-  ],
-  implementation: [
-    {
-      id: generateId(),
-      type: 'code',
-      content: `# Project Documentation
+// const initialContent: TabContent = {
+//   overview: [
+//     {
+//       id: generateId(),
+//       type: 'text',
+//       content: 'Welcome to the Documentation Editor',
+//       hierarchy: 'h1'
+//     } as TextBlock
+//   ],
+//   implementation: [
+//     {
+//       id: generateId(),
+//       type: 'code',
+//       content: `# Project Documentation
 
-## Overview
-This is a comprehensive documentation example showing how to use README formatting in code blocks.
+// ## Overview
+// This is a comprehensive documentation example showing how to use README formatting in code blocks.
 
-## Installation
-\`\`\`bash
-npm install my-package
-\`\`\`
+// ## Installation
+// \`\`\`bash
+// npm install my-package
+// \`\`\`
 
-## Usage
-1. Import the component
-2. Configure settings
-3. Start building!
+// ## Usage
+// 1. Import the component
+// 2. Configure settings
+// 3. Start building!
 
-## Features
-- **Bold text** for emphasis
-- *Italic text* for subtle emphasis
-- [Links](https://example.com) to resources
-- \`Inline code\` for technical terms
+// ## Features
+// - **Bold text** for emphasis
+// - *Italic text* for subtle emphasis
+// - [Links](https://example.com) to resources
+// - \`Inline code\` for technical terms
 
-> **Note**: This is a blockquote example showing important information.
+// > **Note**: This is a blockquote example showing important information.
 
-## Code Example
-\`\`\`javascript
-function greet(name) {
-  return \`Hello, \${name}!\`;
-}
-\`\`\`
+// ## Code Example
+// \`\`\`javascript
+// function greet(name) {
+//   return \`Hello, \${name}!\`;
+// }
+// \`\`\`
 
-## Contributing
-Please read our [contributing guidelines](CONTRIBUTING.md) before submitting PRs.`,
-      language: 'readme'
-    } as CodeBlock
-  ]
-};
+// ## Contributing
+// Please read our [contributing guidelines](CONTRIBUTING.md) before submitting PRs.`,
+//       language: 'readme'
+//     } as CodeBlock
+//   ]
+// };
 
 export default function CreatePage() {
-  const [content, setContent] = useState<TabContent>(initialContent);
+  const [content, setContent] = useState<TabContent>({
+    overview: [],
+    implementation: []
+  });
   const [dragState, setDragState] = useState<DragState>({
     draggedBlock: null,
     dragOverIndex: null
@@ -105,7 +110,7 @@ export default function CreatePage() {
           });
           // Clear the newly created block ID after scrolling
           setNewlyCreatedBlockId(null);
-        }, 100);
+        }, 200);
       }
     }
   }, [newlyCreatedBlockId]);
@@ -142,14 +147,16 @@ export default function CreatePage() {
             id: baseId,
             type: 'text',
             content: 'New text block',
-            hierarchy: 'paragraph'
+            hierarchy: 'paragraph',
+            order: index
           } as TextBlock;
         case 'code':
           return {
             id: baseId,
             type: 'code',
             content: '// Your code here',
-            language: 'python'
+            language: 'python',
+            order: index
           } as CodeBlock;
         case 'notice':
           return {
@@ -157,13 +164,15 @@ export default function CreatePage() {
             type: 'notice',
             content: 'Important notice',
             noticeType: 'info',
-            format: 'text'
+            format: 'text',
+            order: index
           } as NoticeBlock;
         case 'list':
           return {
             id: baseId,
             type: 'list',
-            items: ['First item']
+            items: ['First item'],
+            order: index
           } as ListBlock;
         default:
           throw new Error(`Unknown block type: ${blockType}`);
@@ -268,12 +277,12 @@ export default function CreatePage() {
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="h1">Heading 1</SelectItem>
-              <SelectItem value="h2">Heading 2</SelectItem>
-              <SelectItem value="h3">Heading 3</SelectItem>
-              <SelectItem value="h4">Heading 4</SelectItem>
-              <SelectItem value="h5">Heading 5</SelectItem>
-              <SelectItem value="h6">Heading 6</SelectItem>
+              <SelectItem value="h1">Heading</SelectItem>
+              {/* <SelectItem value="h2">Heading 2</SelectItem> */}
+              {/* <SelectItem value="h3">Heading 3</SelectItem> */}
+              <SelectItem value="h4">Subheading</SelectItem>
+              {/* <SelectItem value="h5">Heading 5</SelectItem>
+              <SelectItem value="h6">Heading 6</SelectItem> */}
               <SelectItem value="paragraph">Paragraph</SelectItem>
               <SelectItem value="blockquote">Blockquote</SelectItem>
             </SelectContent>
@@ -778,6 +787,18 @@ export default function CreatePage() {
     );
   };
 
+  const submitContent = () => {
+    createGuide(content);
+  };
+
+  const queryClient = useQueryClient()
+  const { mutate: createGuide } = useMutation({
+    mutationFn: createGuideApi,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['guides'] })
+    }
+  })
+  
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       {showBlockSelector && (
@@ -859,6 +880,8 @@ export default function CreatePage() {
           </TabsContent>
         </Tabs>
       </div>
+
+      <Button onClick={submitContent}>Submit</Button>
     </div>
   );
 }
