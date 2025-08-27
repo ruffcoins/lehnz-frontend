@@ -1,7 +1,7 @@
 import { UseFormReturn } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { FormField } from "@/components/common/FormField";
+import { FormField } from "@/components/ui/FormField";
 import { SignupFormData } from "@/lib/validators";
 
 interface FinalDetailsStepProps {

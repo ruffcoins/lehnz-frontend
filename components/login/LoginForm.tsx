@@ -4,7 +4,7 @@ import { UseFormReturn } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { FormField } from "@/components/common/FormField";
+import { FormField } from "@/components/ui/FormField";
 import { LoginFormData } from "@/lib/validators";
 
 interface LoginFormProps {

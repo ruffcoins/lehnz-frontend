@@ -3,7 +3,7 @@ import { UseFormReturn } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SignupFormData } from "@/lib/validators";
-import { FormField } from "@/components/common/FormField";
+import { FormField } from "@/components/ui/FormField";
 
 interface BasicInfoStepProps {
   form: UseFormReturn<SignupFormData>;

@@ -7,22 +7,61 @@ const baseApi = axios.create({
   },
 });
 
-const createGuideApi = async (guide: any) => {
-    const guideData = {
-        content: guide, 
-        isPublished: false,
-        isPublic: true,
-        metaTitle: "React Documentation Editor - Complete Implementation Guide",
-        metaDescription: "Learn how to build a professional documentation editor with React, TypeScript, and modern web technologies.",
-        slug: "react-documentation-editor-implementation",
-        authorId: "user-123",
-        version: "1.0.0",
-        title: "React Documentation Editor Implementation",
-        description: "A comprehensive guide to building a block-based documentation editor with React and TypeScript",
-        tags: ["react", "typescript", "documentation", "editor"],
-        category: "frontend",
+interface GuideContent {
+  overview: string;
+  implementation: string;
+}
+
+interface GuideData {
+  title: string;
+  description: string;
+  tags: string[];
+  category: string;
+  content: GuideContent;
+  isPublished: boolean;
+  isPublic: boolean;
+  metaTitle: string;
+  metaDescription: string;
+  authorId: string;
+  version: string;
+}
+
+interface CreateGuideParams {
+  title: string;
+  description: string;
+  tags: string[];
+  category: string;
+  overview: string;
+  implementation: string;
+  isPublished?: boolean;
+  isPublic?: boolean;
+  metaTitle?: string;
+  metaDescription?: string;
+  authorId: string;
+  version?: string;
+}
+
+const createGuideApi = async (params: CreateGuideParams) => {
+    const guideData: GuideData = {
+        title: params.title,
+        description: params.description,
+        tags: params.tags,
+        category: params.category,
+        content: {
+            overview: params.overview,
+            implementation: params.implementation,
+        },
+        isPublished: params.isPublished ?? false,
+        isPublic: params.isPublic ?? true,
+        metaTitle: params.metaTitle ?? params.title,
+        metaDescription: params.metaDescription ?? params.description,
+        authorId: params.authorId,
+        version: params.version ?? "1.0.0",
     }
+    console.log("Guide Data", guideData);
+    console.log("Base API", baseApi);
   const response = await baseApi.post('/documentation', guideData);
   return response.data;
 };
 export default createGuideApi;
+export type { CreateGuideParams, GuideData, GuideContent };

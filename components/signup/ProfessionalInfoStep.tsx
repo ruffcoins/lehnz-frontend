@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import TagInput from "@/components/ui/TagInput";
-import { FormField } from "@/components/common/FormField";
+import { FormField } from "@/components/ui/FormField";
 import { SignupFormData } from "@/lib/validators";
 import { INDUSTRIES, AI_ML_TECHNOLOGIES, GENERAL_TECHNOLOGIES, ROLES } from "@/lib/consts";
 import { SignupRole } from "@/hooks/useSignupForm";
