@@ -36,17 +36,23 @@ export function getStepDescription(step: number, role?: string): string {
   }
 }
 
-export function validateStepCompletion(step: number, data: SignupFormData, role: SignupRole): boolean {
+export function validateStepCompletion(
+  step: number,
+  data: SignupFormData,
+  role: SignupRole
+): boolean {
   switch (step) {
     case 1:
-      return Boolean(role && role === ROLES.CREATOR || role === ROLES.USER);
+      return Boolean((role && role === ROLES.CREATOR) || role === ROLES.USER);
     case 2:
       return Boolean(data.name && data.email && data.password);
     case 3:
       if (role === ROLES.CREATOR) {
         return Boolean(data.currentIndustry && data.aiMlStack && data.aiMlStack?.length > 0);
       } else {
-        return Boolean(data.currentIndustry && data.roleTitle && data.techStack && data.techStack?.length > 0);
+        return Boolean(
+          data.currentIndustry && data.roleTitle && data.techStack && data.techStack?.length > 0
+        );
       }
     case 4:
       return true; // Final step, all previous validations passed

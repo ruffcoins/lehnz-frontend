@@ -25,14 +25,14 @@ export function useSignupForm() {
   // Handle form submission
   const onSubmit = async (data: SignupFormData) => {
     setIsSubmitting(true);
-    
+
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 2000));
-      
+
       console.log("Form submitted:", data);
       // Here you would typically make an API call to create the user account
-      
+
       alert("Account created successfully!");
       handleReset();
     } catch (error) {
@@ -48,12 +48,12 @@ export function useSignupForm() {
     setSelectedRole(role);
     setValue("role", role);
     setCurrentStep(2);
-    
+
     // Set tech stack arrays in form
     if (role === ROLES.CREATOR) {
-      setValue("aiMlStack" as keyof SignupFormData, selectedAiMlStack as any);
+      setValue("aiMlStack" as keyof SignupFormData, selectedAiMlStack);
     } else {
-      setValue("techStack" as keyof SignupFormData, selectedTechStack as any);
+      setValue("techStack" as keyof SignupFormData, selectedTechStack);
     }
   };
 
@@ -61,7 +61,7 @@ export function useSignupForm() {
   const nextStep = async () => {
     const fieldsToValidate = getFieldsToBeValidatedForStep(currentStep, selectedRole);
     const isValid = await trigger(fieldsToValidate);
-    
+
     if (isValid) {
       setCurrentStep(currentStep + 1);
     }
@@ -83,12 +83,12 @@ export function useSignupForm() {
   // Update tech stacks
   const updateTechStack = (tags: string[]) => {
     setSelectedTechStack(tags);
-    setValue("techStack" as keyof SignupFormData, tags as any);
+    setValue("techStack" as keyof SignupFormData, tags);
   };
 
   const updateAiMlStack = (tags: string[]) => {
     setSelectedAiMlStack(tags);
-    setValue("aiMlStack" as keyof SignupFormData, tags as any);
+    setValue("aiMlStack" as keyof SignupFormData, tags);
   };
 
   return {
@@ -99,7 +99,7 @@ export function useSignupForm() {
     currentStep,
     selectedTechStack,
     selectedAiMlStack,
-    
+
     // Actions
     onSubmit: handleSubmit(onSubmit),
     handleRoleChange,
@@ -118,8 +118,8 @@ function getFieldsToBeValidatedForStep(step: number, role: SignupRole) {
       return ["name", "email", "password"] as const;
     case 3:
       return role === ROLES.CREATOR
-        ? ["currentIndustry", "aiMlStack"] as const
-        : ["currentIndustry", "roleTitle", "techStack"] as const;
+        ? (["currentIndustry", "aiMlStack"] as const)
+        : (["currentIndustry", "roleTitle", "techStack"] as const);
     default:
       return [];
   }

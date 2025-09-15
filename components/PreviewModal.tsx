@@ -20,12 +20,12 @@ interface PreviewModalProps {
 export default function PreviewModal({ isOpen, onClose, guide }: PreviewModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto p-0">
-        <DialogHeader className="sticky top-0 bg-background border-b px-6 py-4">
+      <DialogContent className="max-h-[90vh] max-w-6xl overflow-y-auto p-0">
+        <DialogHeader className="bg-background sticky top-0 border-b px-6 py-4">
           <div className="flex items-center justify-between">
-            <DialogTitle className="text-xl font-serif">Preview Guide</DialogTitle>
+            <DialogTitle className="font-serif text-xl">Preview Guide</DialogTitle>
             <Button variant="ghost" size="sm" onClick={onClose}>
-              <X className="w-4 h-4" />
+              <X className="h-4 w-4" />
             </Button>
           </div>
         </DialogHeader>

@@ -22,7 +22,11 @@ export default function LoginForm({
   onTogglePassword,
   onForgotPassword,
 }: LoginFormProps) {
-  const { register, formState: { errors }, watch } = form;
+  const {
+    register,
+    formState: { errors },
+    watch,
+  } = form;
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [forgotPasswordEmail, setForgotPasswordEmail] = useState("");
   const [isSendingReset, setIsSendingReset] = useState(false);
@@ -32,7 +36,7 @@ export default function LoginForm({
   const handleForgotPasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!forgotPasswordEmail) return;
-    
+
     setIsSendingReset(true);
     await onForgotPassword(forgotPasswordEmail);
     setIsSendingReset(false);
@@ -42,25 +46,22 @@ export default function LoginForm({
 
   if (showForgotPassword) {
     return (
-      <div className="space-y-6 animate-in slide-in-from-right-5 duration-300">
+      <div className="animate-in slide-in-from-right-5 space-y-6 duration-300">
         <div className="text-center">
-          <h3 className="text-lg font-semibold mb-2">Reset Your Password</h3>
-          <p className="text-sm text-muted-foreground">
+          <h3 className="mb-2 text-lg font-semibold">Reset Your Password</h3>
+          <p className="text-muted-foreground text-sm">
             Enter your email address and we&apos;ll send you a link to reset your password
           </p>
         </div>
 
         <form onSubmit={handleForgotPasswordSubmit} className="space-y-4">
-          <FormField
-            label="Email Address"
-            error={errors.email?.message}
-          >
+          <FormField label="Email Address" error={errors.email?.message}>
             <div className="relative">
-              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+              <Mail className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform" />
               <Input
                 type="email"
                 value={forgotPasswordEmail}
-                onChange={(e) => setForgotPasswordEmail(e.target.value)}
+                onChange={e => setForgotPasswordEmail(e.target.value)}
                 placeholder="Enter your email address"
                 className="pl-10"
                 required
@@ -69,24 +70,24 @@ export default function LoginForm({
           </FormField>
 
           <div className="space-y-3">
-            <Button 
-              type="submit" 
-              className="w-full" 
+            <Button
+              type="submit"
+              className="w-full"
               disabled={isSendingReset || !forgotPasswordEmail}
             >
               {isSendingReset ? (
                 <>
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                  <div className="mr-2 h-4 w-4 animate-spin rounded-full border-b-2 border-white"></div>
                   Sending...
                 </>
               ) : (
                 "Send Reset Link"
               )}
             </Button>
-            
-            <Button 
-              type="button" 
-              variant="outline" 
+
+            <Button
+              type="button"
+              variant="outline"
               className="w-full"
               onClick={() => setShowForgotPassword(false)}
             >
@@ -101,12 +102,9 @@ export default function LoginForm({
   return (
     <div className="space-y-6">
       <div className="space-y-4">
-        <FormField
-          label="Email Address"
-          error={errors.email?.message}
-        >
+        <FormField label="Email Address" error={errors.email?.message}>
           <div className="relative">
-            <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+            <Mail className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform" />
             <Input
               type="email"
               {...register("email")}
@@ -117,25 +115,22 @@ export default function LoginForm({
           </div>
         </FormField>
 
-        <FormField
-          label="Password"
-          error={errors.password?.message}
-        >
+        <FormField label="Password" error={errors.password?.message}>
           <div className="relative">
-            <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+            <Lock className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform" />
             <Input
               type={showPassword ? "text" : "password"}
               {...register("password")}
               placeholder="Enter your password"
-              className={`pl-10 pr-10 ${errors.password ? "border-destructive" : ""}`}
+              className={`pr-10 pl-10 ${errors.password ? "border-destructive" : ""}`}
               autoComplete="current-password"
             />
             <button
               type="button"
               onClick={onTogglePassword}
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+              className="text-muted-foreground hover:text-foreground absolute top-1/2 right-3 -translate-y-1/2 transform transition-colors"
             >
-              {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </button>
           </div>
         </FormField>
@@ -143,38 +138,28 @@ export default function LoginForm({
 
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">
-          <Checkbox 
-            id="rememberMe" 
-            {...register("rememberMe")}
-          />
-          <label 
-            htmlFor="rememberMe" 
-            className="text-sm text-muted-foreground cursor-pointer"
-          >
+          <Checkbox id="rememberMe" {...register("rememberMe")} />
+          <label htmlFor="rememberMe" className="text-muted-foreground cursor-pointer text-sm">
             Remember me
           </label>
         </div>
-        
+
         <button
           type="button"
           onClick={() => {
             setForgotPasswordEmail(watchedEmail || "");
             setShowForgotPassword(true);
           }}
-          className="text-sm text-primary hover:underline"
+          className="text-primary text-sm hover:underline"
         >
           Forgot password?
         </button>
       </div>
 
-      <Button 
-        type="submit" 
-        className="w-full" 
-        disabled={isSubmitting}
-      >
+      <Button type="submit" className="w-full" disabled={isSubmitting}>
         {isSubmitting ? (
           <>
-            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+            <div className="mr-2 h-4 w-4 animate-spin rounded-full border-b-2 border-white"></div>
             Signing in...
           </>
         ) : (

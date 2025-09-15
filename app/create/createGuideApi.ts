@@ -1,9 +1,9 @@
-import axios from 'axios';
+import axios from "axios";
 
 const baseApi = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 
@@ -42,25 +42,25 @@ interface CreateGuideParams {
 }
 
 const createGuideApi = async (params: CreateGuideParams) => {
-    const guideData: GuideData = {
-        title: params.title,
-        description: params.description,
-        tags: params.tags,
-        category: params.category,
-        content: {
-            overview: params.overview,
-            implementation: params.implementation,
-        },
-        isPublished: params.isPublished ?? false,
-        isPublic: params.isPublic ?? true,
-        metaTitle: params.metaTitle ?? params.title,
-        metaDescription: params.metaDescription ?? params.description,
-        authorId: params.authorId,
-        version: params.version ?? "1.0.0",
-    }
-    console.log("Guide Data", guideData);
-    console.log("Base API", baseApi);
-  const response = await baseApi.post('/documentation', guideData);
+  const guideData: GuideData = {
+    title: params.title,
+    description: params.description,
+    tags: params.tags,
+    category: params.category,
+    content: {
+      overview: params.overview,
+      implementation: params.implementation,
+    },
+    isPublished: params.isPublished ?? false,
+    isPublic: params.isPublic ?? true,
+    metaTitle: params.metaTitle ?? params.title,
+    metaDescription: params.metaDescription ?? params.description,
+    authorId: params.authorId,
+    version: params.version ?? "1.0.0",
+  };
+  console.log("Guide Data", guideData);
+  console.log("Base API", baseApi);
+  const response = await baseApi.post("/documentation", guideData);
   return response.data;
 };
 export default createGuideApi;

@@ -1,9 +1,9 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { toast } from 'sonner';
-import createGuideApi, { CreateGuideParams } from '@/app/create/createGuideApi';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
+import createGuideApi from "@/app/create/createGuideApi";
 
 interface UseCreateGuideOptions {
-  onSuccess?: (data: any) => void;
+  onSuccess?: (data: unknown) => void;
   onError?: (error: Error) => void;
 }
 
@@ -12,15 +12,15 @@ export function useCreateGuide(options?: UseCreateGuideOptions) {
 
   return useMutation({
     mutationFn: createGuideApi,
-    onSuccess: (data) => {
-      toast.success('Guide created successfully!');
+    onSuccess: data => {
+      toast.success("Guide created successfully!");
       // Invalidate and refetch any guides queries
-      queryClient.invalidateQueries({ queryKey: ['guides'] });
+      queryClient.invalidateQueries({ queryKey: ["guides"] });
       options?.onSuccess?.(data);
     },
     onError: (error: Error) => {
-      toast.error('Failed to create guide. Please try again.');
-      console.error('Guide creation error:', error);
+      toast.error("Failed to create guide. Please try again.");
+      console.error("Guide creation error:", error);
       options?.onError?.(error);
     },
   });
@@ -32,13 +32,13 @@ export function useAutoSaveGuide() {
 
   return useMutation({
     mutationFn: createGuideApi,
-    onSuccess: (data) => {
+    onSuccess: data => {
       // Silent success for auto-save
-      queryClient.setQueryData(['guide-draft'], data);
+      queryClient.setQueryData(["guide-draft"], data);
     },
     onError: (error: Error) => {
       // Silent error logging for auto-save
-      console.warn('Auto-save failed:', error);
+      console.warn("Auto-save failed:", error);
     },
   });
 }

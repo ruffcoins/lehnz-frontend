@@ -15,4 +15,4 @@ export const SIGNUP_STEPS = {
   FINAL_DETAILS: 4,
 } as const;
 
-export type SignupStep = typeof SIGNUP_STEPS[keyof typeof SIGNUP_STEPS];
+export type SignupStep = (typeof SIGNUP_STEPS)[keyof typeof SIGNUP_STEPS];

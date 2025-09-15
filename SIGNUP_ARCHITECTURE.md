@@ -27,17 +27,20 @@ types/signup.ts                     # TypeScript type definitions
 ## 🏗️ Architecture Principles
 
 ### 1. **Separation of Concerns**
+
 - **UI Components**: Pure presentation components with minimal logic
 - **Custom Hook**: All form state and business logic
 - **Validators**: Schema validation separated from UI
 - **Constants**: Reusable data definitions
 
 ### 2. **Component Composition**
+
 - Each step is an independent, reusable component
 - Props drilling minimized through thoughtful component design
 - Common patterns extracted into reusable components
 
 ### 3. **Type Safety**
+
 - Comprehensive TypeScript interfaces
 - Zod schema validation for runtime type safety
 - Union types for role-specific form data
@@ -45,20 +48,24 @@ types/signup.ts                     # TypeScript type definitions
 ## 🔧 Key Components
 
 ### `useSignupForm` Hook
+
 **Purpose**: Centralized form state management and business logic
 
 **Responsibilities**:
+
 - Form validation and submission
 - Step navigation logic
 - Role-specific field management
 - Tech stack array handling
 
 **Benefits**:
+
 - Testable in isolation
 - Reusable across different UI implementations
 - Clear separation of logic from presentation
 
 ### Step Components
+
 Each step component follows a consistent pattern:
 
 ```typescript
@@ -71,12 +78,14 @@ interface StepProps {
 ```
 
 **Benefits**:
+
 - Self-contained and focused
 - Easy to test individual steps
 - Reusable in different contexts
 - Clear prop interfaces
 
 ### `FormField` Component
+
 **Purpose**: Consistent form field styling and error handling
 
 ```typescript
@@ -86,14 +95,17 @@ interface StepProps {
 ```
 
 **Benefits**:
+
 - Consistent error display
 - Reduced boilerplate
 - Centralized field styling
 
 ### `TagInput` Component
+
 **Purpose**: Multi-select input with autocomplete
 
 **Features**:
+
 - Search filtering
 - Click-outside handling
 - Keyboard navigation
@@ -102,27 +114,30 @@ interface StepProps {
 ## 🧪 Testing Strategy
 
 ### Unit Tests
+
 - **Hook Testing**: `useSignupForm` logic in isolation
 - **Component Testing**: Individual step components
 - **Validation Testing**: Zod schemas
 
 ### Integration Tests
+
 - **Form Flow**: Multi-step navigation
 - **Role Switching**: Conditional field behavior
 - **Submission**: End-to-end form submission
 
 ### Example Test Structure
+
 ```typescript
 // hooks/useSignupForm.test.ts
-describe('useSignupForm', () => {
-  it('should navigate to next step on valid input', () => {
+describe("useSignupForm", () => {
+  it("should navigate to next step on valid input", () => {
     // Test step navigation logic
   });
 });
 
 // components/signup/RoleSelectionStep.test.tsx
-describe('RoleSelectionStep', () => {
-  it('should call onRoleChange when role is selected', () => {
+describe("RoleSelectionStep", () => {
+  it("should call onRoleChange when role is selected", () => {
     // Test role selection behavior
   });
 });
@@ -131,26 +146,31 @@ describe('RoleSelectionStep', () => {
 ## 🚀 Benefits of This Architecture
 
 ### 1. **Maintainability**
+
 - Single responsibility components
 - Clear separation of concerns
 - Consistent patterns across codebase
 
 ### 2. **Reusability**
+
 - Step components can be reused in different flows
 - FormField wrapper reduces duplication
 - TagInput component usable throughout app
 
 ### 3. **Testability**
+
 - Business logic separated from UI
 - Components have clear interfaces
 - Mock-friendly hook structure
 
 ### 4. **Developer Experience**
+
 - TypeScript provides excellent IDE support
 - Clear file organization
 - Consistent naming conventions
 
 ### 5. **Performance**
+
 - Component-level code splitting possible
 - Minimal re-renders through focused state
 - Lazy loading of step components
@@ -158,12 +178,14 @@ describe('RoleSelectionStep', () => {
 ## 📈 Future Enhancements
 
 ### Easy Additions
+
 - **Analytics**: Add tracking to each step
 - **A/B Testing**: Swap step components easily
 - **Internationalization**: Extract strings to constants
 - **Accessibility**: Add ARIA labels and keyboard navigation
 
 ### Possible Extensions
+
 - **Form Persistence**: Save progress to localStorage
 - **Server Validation**: Add async validation hooks
 - **Multi-tenant**: Role-specific branding per step

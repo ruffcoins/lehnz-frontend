@@ -8,45 +8,41 @@ interface RoleSelectionStepProps {
   error?: string;
 }
 
-export default function RoleSelectionStep({ 
-  selectedRole, 
-  onRoleChange, 
-  error 
+export default function RoleSelectionStep({
+  selectedRole,
+  onRoleChange,
+  error,
 }: RoleSelectionStepProps) {
   return (
-    <div className="space-y-6 animate-in slide-in-from-right-5 duration-300">
+    <div className="animate-in slide-in-from-right-5 space-y-6 duration-300">
       <div className="text-center">
-        <h3 className="text-lg font-semibold mb-2">Choose Your Role</h3>
-        <p className="text-sm text-muted-foreground">
-          This helps us personalize your experience
-        </p>
+        <h3 className="mb-2 text-lg font-semibold">Choose Your Role</h3>
+        <p className="text-muted-foreground text-sm">This helps us personalize your experience</p>
       </div>
-      
+
       <div className="grid gap-4 md:grid-cols-2">
         <RoleCard
           role={ROLES.CREATOR}
           isSelected={selectedRole === ROLES.CREATOR}
           onSelect={() => onRoleChange(ROLES.CREATOR)}
-          icon={<PenTool className="w-6 h-6 text-primary mr-3" />}
+          icon={<PenTool className="text-primary mr-3 h-6 w-6" />}
           title="Creator"
           description="Share your AI/ML projects, tutorials, and insights with the community"
           details="Perfect for: Researchers, ML Engineers, Data Scientists who want to share knowledge"
         />
-        
+
         <RoleCard
           role={ROLES.USER}
           isSelected={selectedRole === ROLES.USER}
           onSelect={() => onRoleChange(ROLES.USER)}
-          icon={<User className="w-6 h-6 text-primary mr-3" />}
+          icon={<User className="text-primary mr-3 h-6 w-6" />}
           title="User"
           description="Discover, learn from, and engage with AI/ML content and community"
           details="Perfect for: Students, Developers, Professionals learning AI/ML"
         />
       </div>
-      
-      {error && (
-        <p className="text-sm text-destructive text-center">{error}</p>
-      )}
+
+      {error && <p className="text-destructive text-center text-sm">{error}</p>}
     </div>
   );
 }
@@ -61,34 +57,23 @@ interface RoleCardProps {
   details: string;
 }
 
-function RoleCard({ 
-  isSelected, 
-  onSelect, 
-  icon, 
-  title, 
-  description, 
-  details 
-}: RoleCardProps) {
+function RoleCard({ isSelected, onSelect, icon, title, description, details }: RoleCardProps) {
   return (
     <button
       type="button"
       onClick={onSelect}
-      className={`p-6 rounded-lg border-2 text-left transition-all duration-200 hover:shadow-md ${
+      className={`rounded-lg border-2 p-6 text-left transition-all duration-200 hover:shadow-md ${
         isSelected
-          ? "border-primary bg-primary/5 ring-2 ring-primary/20"
+          ? "border-primary bg-primary/5 ring-primary/20 ring-2"
           : "border-border hover:border-primary/50"
       }`}
     >
-      <div className="flex items-center mb-3">
+      <div className="mb-3 flex items-center">
         {icon}
         <span className="font-semibold">{title}</span>
       </div>
-      <p className="text-sm text-muted-foreground mb-3">
-        {description}
-      </p>
-      <div className="text-xs text-muted-foreground">
-        {details}
-      </div>
+      <p className="text-muted-foreground mb-3 text-sm">{description}</p>
+      <div className="text-muted-foreground text-xs">{details}</div>
     </button>
   );
 }

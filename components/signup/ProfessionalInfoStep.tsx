@@ -2,7 +2,13 @@ import { ChevronRight } from "lucide-react";
 import { UseFormReturn } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import TagInput from "@/components/ui/TagInput";
 import { FormField } from "@/components/ui/FormField";
 import { SignupFormData } from "@/lib/validators";
@@ -28,29 +34,30 @@ export default function ProfessionalInfoStep({
   onUpdateTechStack,
   onUpdateAiMlStack,
   onNext,
-  onPrev
+  onPrev,
 }: ProfessionalInfoStepProps) {
-  const { register, setValue, formState: { errors } } = form;
+  const {
+    register,
+    setValue,
+    formState: { errors },
+  } = form;
 
   return (
-    <div className="space-y-4 animate-in slide-in-from-right-5 duration-300">
-      <div className="text-center mb-6">
-        <h3 className="text-lg font-semibold mb-2">Professional Details</h3>
-        <p className="text-sm text-muted-foreground">
+    <div className="animate-in slide-in-from-right-5 space-y-4 duration-300">
+      <div className="mb-6 text-center">
+        <h3 className="mb-2 text-lg font-semibold">Professional Details</h3>
+        <p className="text-muted-foreground text-sm">
           Help us understand your background as a {selectedRole}
         </p>
       </div>
 
-      <FormField
-        label="Current Industry *"
-        error={errors.currentIndustry?.message}
-      >
-        <Select onValueChange={(value) => setValue("currentIndustry", value)}>
+      <FormField label="Current Industry *" error={errors.currentIndustry?.message}>
+        <Select onValueChange={value => setValue("currentIndustry", value)}>
           <SelectTrigger className={errors.currentIndustry ? "border-destructive" : ""}>
             <SelectValue placeholder="Select your industry" />
           </SelectTrigger>
           <SelectContent>
-            {INDUSTRIES.map((industry) => (
+            {INDUSTRIES.map(industry => (
               <SelectItem key={industry} value={industry}>
                 {industry}
               </SelectItem>
@@ -60,10 +67,7 @@ export default function ProfessionalInfoStep({
       </FormField>
 
       {selectedRole === ROLES.CREATOR ? (
-        <FormField
-          label="Preferred AI/ML Technologies *"
-          error={errors.aiMlStack?.message}
-        >
+        <FormField label="Preferred AI/ML Technologies *" error={errors.aiMlStack?.message}>
           <TagInput
             options={AI_ML_TECHNOLOGIES}
             value={selectedAiMlStack}
@@ -74,10 +78,7 @@ export default function ProfessionalInfoStep({
         </FormField>
       ) : (
         <>
-          <FormField
-            label="Job Title / Role *"
-            error={errors.roleTitle?.message}
-          >
+          <FormField label="Job Title / Role *" error={errors.roleTitle?.message}>
             <Input
               {...register("roleTitle" as keyof SignupFormData)}
               placeholder="e.g., Data Scientist, Software Engineer, Student"
@@ -85,10 +86,7 @@ export default function ProfessionalInfoStep({
             />
           </FormField>
 
-          <FormField
-            label="Tech Stack *"
-            error={errors.techStack?.message}
-          >
+          <FormField label="Tech Stack *" error={errors.techStack?.message}>
             <TagInput
               options={GENERAL_TECHNOLOGIES}
               value={selectedTechStack}
@@ -105,7 +103,7 @@ export default function ProfessionalInfoStep({
           Back
         </Button>
         <Button type="button" onClick={onNext}>
-          Continue <ChevronRight className="w-4 h-4 ml-1" />
+          Continue <ChevronRight className="ml-1 h-4 w-4" />
         </Button>
       </div>
     </div>

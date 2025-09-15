@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Label } from "@/components/ui/label";
 
@@ -17,9 +16,7 @@ export function FormField({ label, error, children, required = false }: FormFiel
         {required && <span className="text-destructive ml-1">*</span>}
       </Label>
       {children}
-      {error && (
-        <p className="text-sm text-destructive">{error}</p>
-      )}
+      {error && <p className="text-destructive text-sm">{error}</p>}
     </div>
   );
 }

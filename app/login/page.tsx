@@ -24,15 +24,13 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/30 flex items-center justify-center p-4">
+    <div className="from-background via-background to-muted/30 flex min-h-screen items-center justify-center bg-gradient-to-br p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold">Welcome Back</CardTitle>
-          <CardDescription>
-            Sign in to your Lehnz account to continue
-          </CardDescription>
+          <CardDescription>Sign in to your Lehnz account to continue</CardDescription>
         </CardHeader>
-        
+
         <CardContent>
           {/* Demo Alert */}
           <DemoAlert
@@ -60,10 +58,10 @@ export default function LoginPage() {
           </div>
 
           {/* Sign up link */}
-          <div className="text-center mt-8 pt-6 border-t">
-            <p className="text-sm text-muted-foreground">
+          <div className="mt-8 border-t pt-6 text-center">
+            <p className="text-muted-foreground text-sm">
               Don&apos;t have an account?{" "}
-              <Link href="/signup" className="text-primary hover:underline font-medium">
+              <Link href="/signup" className="text-primary font-medium hover:underline">
                 Sign up
               </Link>
             </p>

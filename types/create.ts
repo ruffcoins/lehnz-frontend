@@ -1,10 +1,10 @@
-export type TextHierarchy = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'paragraph' | 'blockquote';
+export type TextHierarchy = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "paragraph" | "blockquote";
 
-export type CodeLanguage = 'python' | 'text' | 'readme' | 'dockerfile' | 'json';
+export type CodeLanguage = "python" | "text" | "readme" | "dockerfile" | "json";
 
-export type NoticeType = 'info' | 'warning' | 'error' | 'success';
+export type NoticeType = "info" | "warning" | "error" | "success";
 
-export type BlockType = 'text' | 'code' | 'notice' | 'list';
+export type BlockType = "text" | "code" | "notice" | "list";
 
 export interface BaseBlock {
   id: string;
@@ -13,26 +13,26 @@ export interface BaseBlock {
 }
 
 export interface TextBlock extends BaseBlock {
-  type: 'text';
+  type: "text";
   content: string;
   hierarchy: TextHierarchy;
 }
 
 export interface CodeBlock extends BaseBlock {
-  type: 'code';
+  type: "code";
   content: string;
   language: CodeLanguage;
 }
 
 export interface NoticeBlock extends BaseBlock {
-  type: 'notice';
+  type: "notice";
   content: string;
   noticeType: NoticeType;
-  format: 'text' | 'markdown';
+  format: "text" | "markdown";
 }
 
 export interface ListBlock extends BaseBlock {
-  type: 'list';
+  type: "list";
   items: string[];
 }
 

@@ -25,20 +25,22 @@ export default function SignUpPage() {
     updateAiMlStack,
   } = useSignupForm();
 
-  const { formState: { errors } } = form;
+  const {
+    formState: { errors },
+  } = form;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/30 flex items-center justify-center p-4">
+    <div className="from-background via-background to-muted/30 flex min-h-screen items-center justify-center bg-gradient-to-br p-4">
       <Card className="w-full max-w-2xl">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold">Join Lehnz</CardTitle>
           <CardDescription>
             Create your account to start sharing and discovering AI/ML engineering content
           </CardDescription>
-          
+
           <ProgressIndicator currentStep={currentStep} />
         </CardHeader>
-        
+
         <CardContent>
           <form onSubmit={onSubmit} className="space-y-6">
             {/* Step 1: Role Selection */}
@@ -51,13 +53,7 @@ export default function SignUpPage() {
             )}
 
             {/* Step 2: Basic Information */}
-            {currentStep === 2 && (
-              <BasicInfoStep
-                form={form}
-                onNext={nextStep}
-                onPrev={prevStep}
-              />
-            )}
+            {currentStep === 2 && <BasicInfoStep form={form} onNext={nextStep} onPrev={prevStep} />}
 
             {/* Step 3: Professional Information */}
             {currentStep === 3 && (
@@ -75,19 +71,15 @@ export default function SignUpPage() {
 
             {/* Step 4: Final Details */}
             {currentStep === 4 && (
-              <FinalDetailsStep
-                form={form}
-                isSubmitting={isSubmitting}
-                onPrev={prevStep}
-              />
+              <FinalDetailsStep form={form} isSubmitting={isSubmitting} onPrev={prevStep} />
             )}
           </form>
 
           {/* Login Link */}
-          <div className="text-center mt-8 pt-6 border-t">
-            <p className="text-sm text-muted-foreground">
+          <div className="mt-8 border-t pt-6 text-center">
+            <p className="text-muted-foreground text-sm">
               Already have an account?{" "}
-              <Link href="/login" className="text-primary hover:underline font-medium">
+              <Link href="/login" className="text-primary font-medium hover:underline">
                 Log in
               </Link>
             </p>

@@ -12,22 +12,20 @@ interface BasicInfoStepProps {
 }
 
 export default function BasicInfoStep({ form, onNext, onPrev }: BasicInfoStepProps) {
-  const { register, formState: { errors } } = form;
+  const {
+    register,
+    formState: { errors },
+  } = form;
 
   return (
-    <div className="space-y-4 animate-in slide-in-from-right-5 duration-300">
-      <div className="text-center mb-6">
-        <h3 className="text-lg font-semibold mb-2">Basic Information</h3>
-        <p className="text-sm text-muted-foreground">
-          Tell us a bit about yourself
-        </p>
+    <div className="animate-in slide-in-from-right-5 space-y-4 duration-300">
+      <div className="mb-6 text-center">
+        <h3 className="mb-2 text-lg font-semibold">Basic Information</h3>
+        <p className="text-muted-foreground text-sm">Tell us a bit about yourself</p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
-        <FormField
-          label="Full Name *"
-          error={errors.name?.message}
-        >
+        <FormField label="Full Name *" error={errors.name?.message}>
           <Input
             {...register("name")}
             placeholder="Enter your full name"
@@ -35,10 +33,7 @@ export default function BasicInfoStep({ form, onNext, onPrev }: BasicInfoStepPro
           />
         </FormField>
 
-        <FormField
-          label="Email Address *"
-          error={errors.email?.message}
-        >
+        <FormField label="Email Address *" error={errors.email?.message}>
           <Input
             type="email"
             {...register("email")}
@@ -48,10 +43,7 @@ export default function BasicInfoStep({ form, onNext, onPrev }: BasicInfoStepPro
         </FormField>
       </div>
 
-      <FormField
-        label="Password *"
-        error={errors.password?.message}
-      >
+      <FormField label="Password *" error={errors.password?.message}>
         <Input
           type="password"
           {...register("password")}
@@ -65,7 +57,7 @@ export default function BasicInfoStep({ form, onNext, onPrev }: BasicInfoStepPro
           Back
         </Button>
         <Button type="button" onClick={onNext}>
-          Continue <ChevronRight className="w-4 h-4 ml-1" />
+          Continue <ChevronRight className="ml-1 h-4 w-4" />
         </Button>
       </div>
     </div>

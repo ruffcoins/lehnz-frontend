@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState, useEffect } from "react";
 
 import { useCreateGuide } from "@/hooks/useCreateGuide";
@@ -31,13 +31,11 @@ export default function CreateGuide() {
       toast.success("Guide published successfully!");
       router.push("/"); // Redirect to home page after successful creation
     },
-    onError: (error) => {
+    onError: error => {
       toast.error("Failed to publish guide");
       console.error("Publish error:", error);
     },
   });
-
-
 
   const handleNextStep = () => {
     if (currentStep === 1) {
@@ -48,14 +46,14 @@ export default function CreateGuide() {
         title: title || "Untitled Guide",
         description: subtitle || "No description provided",
         tags: ["guide"], // You can make this dynamic based on user input
-        category: "general", // You can make this dynamic based on user input  
+        category: "general", // You can make this dynamic based on user input
         overview: step1Content,
         implementation: step2Content,
         authorId: "user-123", // Replace with actual user ID from auth
         isPublished: true,
         isPublic: true,
       };
-      
+
       publishMutation.mutate(publishData);
     }
   };
@@ -66,8 +64,6 @@ export default function CreateGuide() {
     }
   };
 
-
-
   const handlePreview = () => {
     setShowPreview(true);
   };
@@ -77,7 +73,6 @@ export default function CreateGuide() {
     console.log("step1Content", step1Content);
     console.log("step2Content", step2Content);
   }, [step1Content, step2Content]);
-
 
   // if (isLoading) {
   //   return (
@@ -93,9 +88,9 @@ export default function CreateGuide() {
   //     </div>
   //   );
   // }
-  
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="bg-background min-h-screen">
       <GuideHeader
         onBack={() => router.push("/")}
         onPreview={handlePreview}
@@ -105,27 +100,27 @@ export default function CreateGuide() {
 
       <StepProgress currentStep={currentStep} />
 
-      <main className="max-w-4xl mx-auto px-6 pb-12">
+      <main className="mx-auto max-w-4xl px-6 pb-12">
         {/* Title Section */}
         <div className="mb-8">
           <Input
             type="text"
             placeholder="Title"
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="w-full text-4xl font-serif font-bold text-black placeholder-substack-placeholder bg-transparent border-none outline-none shadow-none px-0 mb-4 focus-visible:ring-0"
+            onChange={e => setTitle(e.target.value)}
+            className="placeholder-substack-placeholder mb-4 w-full border-none bg-transparent px-0 font-serif text-4xl font-bold text-black shadow-none outline-none focus-visible:ring-0"
           />
           <Input
             type="text"
             placeholder="Add a subtitle..."
             value={subtitle}
-            onChange={(e) => setSubtitle(e.target.value)}
-            className="w-full text-xl font-serif text-substack-placeholder bg-transparent border-none outline-none shadow-none px-0 mb-6 focus-visible:ring-0"
+            onChange={e => setSubtitle(e.target.value)}
+            className="text-substack-placeholder mb-6 w-full border-none bg-transparent px-0 font-serif text-xl shadow-none outline-none focus-visible:ring-0"
           />
 
           {/* Author Tag */}
-          <div className="flex items-center space-x-2 mb-8">
-            <div className="bg-substack-grey px-3 py-1 rounded-full flex items-center space-x-2">
+          <div className="mb-8 flex items-center space-x-2">
+            <div className="bg-substack-grey flex items-center space-x-2 rounded-full px-3 py-1">
               <span className="text-sm text-gray-700">{authorName}</span>
             </div>
           </div>
@@ -134,7 +129,7 @@ export default function CreateGuide() {
         {/* Editor */}
         <TipTapEditor
           content={currentStep === 1 ? step1Content : step2Content}
-          onChange={(content) => {
+          onChange={content => {
             if (currentStep === 1) {
               setStep1Content(content);
             } else {
@@ -150,24 +145,22 @@ export default function CreateGuide() {
         />
 
         {/* Action Buttons */}
-        <div className="flex items-center justify-between mt-12 pt-8 border-t border-substack-border">
-          <div className="text-sm text-gray-600">
-            Create your guide step by step
-          </div>
+        <div className="border-substack-border mt-12 flex items-center justify-between border-t pt-8">
+          <div className="text-sm text-gray-600">Create your guide step by step</div>
 
           <div className="flex items-center space-x-3">
             {currentStep > 1 && (
               <Button variant="ghost" onClick={handlePreviousStep}>
-                <ArrowLeft className="w-4 h-4 mr-2" />
+                <ArrowLeft className="mr-2 h-4 w-4" />
                 Previous Step
               </Button>
             )}
             <Button
               onClick={handleNextStep}
-              className="bg-orange-600 hover:bg-orange-600 text-white"
+              className="bg-orange-600 text-white hover:bg-orange-600"
             >
               <span>{currentStep === 1 ? "Continue to Code" : "Publish Guide"}</span>
-              <ArrowRight className="w-4 h-4 ml-2" />
+              <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
         </div>

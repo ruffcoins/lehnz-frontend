@@ -27,12 +27,14 @@ export default function TipTapEditor({ content, onChange, step, placeholder }: T
     }),
     Image,
     // Only include code extension in step 2
-    ...(step === 2 ? [
-      CodeBlockLowlight.configure({
-        lowlight,
-        defaultLanguage: 'javascript',
-      })
-    ] : []),
+    ...(step === 2
+      ? [
+          CodeBlockLowlight.configure({
+            lowlight,
+            defaultLanguage: "javascript",
+          }),
+        ]
+      : []),
   ];
 
   const editor = useEditor({
@@ -41,8 +43,8 @@ export default function TipTapEditor({ content, onChange, step, placeholder }: T
     immediatelyRender: false,
     editorProps: {
       attributes: {
-        class: 'prose prose-content max-w-none focus:outline-none min-h-[400px]',
-        'data-placeholder': placeholder,
+        class: "prose prose-content max-w-none focus:outline-none min-h-[400px]",
+        "data-placeholder": placeholder,
       },
     },
     onUpdate: ({ editor }) => {
@@ -60,8 +62,8 @@ export default function TipTapEditor({ content, onChange, step, placeholder }: T
   if (!editor) {
     return (
       <div className="animate-pulse">
-        <div className="h-12 bg-muted rounded-lg mb-6"></div>
-        <div className="h-96 bg-muted rounded-lg"></div>
+        <div className="bg-muted mb-6 h-12 rounded-lg"></div>
+        <div className="bg-muted h-96 rounded-lg"></div>
       </div>
     );
   }

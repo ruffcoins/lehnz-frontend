@@ -14,19 +14,19 @@ export function validatePassword(password: string): {
   errors: string[];
 } {
   const errors: string[] = [];
-  
+
   if (password.length < 6) {
     errors.push("Password must be at least 6 characters long");
   }
-  
+
   if (!/[A-Z]/.test(password)) {
     errors.push("Password must contain at least one uppercase letter");
   }
-  
+
   if (!/[a-z]/.test(password)) {
     errors.push("Password must contain at least one lowercase letter");
   }
-  
+
   if (!/[0-9]/.test(password)) {
     errors.push("Password must contain at least one number");
   }
@@ -62,7 +62,7 @@ export function generateMockUser(credentials: LoginCredentials): User {
 
 export function isValidSession(token?: string): boolean {
   if (!token) return false;
-  
+
   // In a real app, you would validate the JWT token
   // For demo purposes, we'll just check if it exists
   return token.length > 10;
@@ -70,12 +70,12 @@ export function isValidSession(token?: string): boolean {
 
 export function getStoredAuth(): { token?: string; user?: User } {
   if (typeof window === "undefined") return {};
-  
+
   try {
     const token = localStorage.getItem("auth_token");
     const userStr = localStorage.getItem("auth_user");
     const user = userStr ? JSON.parse(userStr) : null;
-    
+
     return { token: token || undefined, user };
   } catch {
     return {};
@@ -84,9 +84,9 @@ export function getStoredAuth(): { token?: string; user?: User } {
 
 export function storeAuth(token: string, user: User, rememberMe = false): void {
   if (typeof window === "undefined") return;
-  
+
   const storage = rememberMe ? localStorage : sessionStorage;
-  
+
   try {
     storage.setItem("auth_token", token);
     storage.setItem("auth_user", JSON.stringify(user));
@@ -97,7 +97,7 @@ export function storeAuth(token: string, user: User, rememberMe = false): void {
 
 export function clearAuth(): void {
   if (typeof window === "undefined") return;
-  
+
   try {
     localStorage.removeItem("auth_token");
     localStorage.removeItem("auth_user");

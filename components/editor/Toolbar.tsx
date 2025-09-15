@@ -37,24 +37,24 @@ export default function Toolbar({ editor, step }: ToolbarProps) {
   };
 
   const toggleLink = () => {
-    const previousUrl = editor.getAttributes('link').href;
-    const url = window.prompt('URL', previousUrl);
+    const previousUrl = editor.getAttributes("link").href;
+    const url = window.prompt("URL", previousUrl);
 
     if (url === null) {
       return;
     }
 
-    if (url === '') {
-      editor.chain().focus().extendMarkRange('link').unsetLink().run();
+    if (url === "") {
+      editor.chain().focus().extendMarkRange("link").unsetLink().run();
       return;
     }
 
-    editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
+    editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
   };
 
   return (
-    <div className="sticky top-20 bg-white border border-substack-border rounded-lg mb-6 z-40">
-      <div className="flex items-center px-4 py-3 space-x-1">
+    <div className="border-substack-border sticky top-20 z-40 mb-6 rounded-lg border bg-white">
+      <div className="flex items-center space-x-1 px-4 py-3">
         {/* Undo/Redo */}
         <Button
           variant="ghost"
@@ -63,7 +63,7 @@ export default function Toolbar({ editor, step }: ToolbarProps) {
           disabled={!editor.can().undo()}
           className="toolbar-button"
         >
-          <Undo className="w-4 h-4" />
+          <Undo className="h-4 w-4" />
         </Button>
         <Button
           variant="ghost"
@@ -72,14 +72,14 @@ export default function Toolbar({ editor, step }: ToolbarProps) {
           disabled={!editor.can().redo()}
           className="toolbar-button"
         >
-          <Redo className="w-4 h-4" />
+          <Redo className="h-4 w-4" />
         </Button>
 
-        <div className="w-px h-6 bg-gray-300 mx-2"></div>
+        <div className="mx-2 h-6 w-px bg-gray-300"></div>
 
         {/* Style Selector */}
         <Select
-          onValueChange={(value) => {
+          onValueChange={value => {
             switch (value) {
               case "paragraph":
                 setParagraph();
@@ -96,7 +96,7 @@ export default function Toolbar({ editor, step }: ToolbarProps) {
             }
           }}
         >
-          <SelectTrigger className="w-32 h-8 text-sm border-none bg-transparent">
+          <SelectTrigger className="h-8 w-32 border-none bg-transparent text-sm">
             <SelectValue placeholder="Style" />
           </SelectTrigger>
           <SelectContent>
@@ -107,98 +107,98 @@ export default function Toolbar({ editor, step }: ToolbarProps) {
           </SelectContent>
         </Select>
 
-        <div className="w-px h-6 bg-gray-300 mx-2"></div>
+        <div className="mx-2 h-6 w-px bg-gray-300"></div>
 
         {/* Text Formatting */}
         <Button
           variant="ghost"
           size="sm"
           onClick={() => editor.chain().focus().toggleBold().run()}
-          className={`toolbar-button ${editor.isActive('bold') ? 'active bg-primary text-primary-foreground' : ''}`}
+          className={`toolbar-button ${editor.isActive("bold") ? "active bg-primary text-primary-foreground" : ""}`}
         >
-          <Bold className="w-4 h-4" />
+          <Bold className="h-4 w-4" />
         </Button>
         <Button
           variant="ghost"
           size="sm"
           onClick={() => editor.chain().focus().toggleItalic().run()}
-          className={`toolbar-button ${editor.isActive('italic') ? 'active bg-primary text-primary-foreground' : ''}`}
+          className={`toolbar-button ${editor.isActive("italic") ? "active bg-primary text-primary-foreground" : ""}`}
         >
-          <Italic className="w-4 h-4" />
+          <Italic className="h-4 w-4" />
         </Button>
         <Button
           variant="ghost"
           size="sm"
           onClick={() => editor.chain().focus().toggleStrike().run()}
-          className={`toolbar-button ${editor.isActive('strike') ? 'active bg-primary text-primary-foreground' : ''}`}
+          className={`toolbar-button ${editor.isActive("strike") ? "active bg-primary text-primary-foreground" : ""}`}
         >
-          <Strikethrough className="w-4 h-4" />
+          <Strikethrough className="h-4 w-4" />
         </Button>
 
-        <div className="w-px h-6 bg-gray-300 mx-2"></div>
+        <div className="mx-2 h-6 w-px bg-gray-300"></div>
 
         {/* Links and Images */}
         <Button
           variant="ghost"
           size="sm"
           onClick={toggleLink}
-          className={`toolbar-button ${editor.isActive('link') ? 'active bg-primary text-primary-foreground' : ''}`}
+          className={`toolbar-button ${editor.isActive("link") ? "active bg-primary text-primary-foreground" : ""}`}
         >
-          <Link className="w-4 h-4" />
+          <Link className="h-4 w-4" />
         </Button>
         <Button
           variant="ghost"
           size="sm"
           onClick={() => {
-            const url = window.prompt('Image URL');
+            const url = window.prompt("Image URL");
             if (url) {
               editor.chain().focus().setImage({ src: url }).run();
             }
           }}
           className="toolbar-button"
         >
-          <ImageIcon className="w-4 h-4" />
+          <ImageIcon className="h-4 w-4" />
         </Button>
 
-        <div className="w-px h-6 bg-gray-300 mx-2"></div>
+        <div className="mx-2 h-6 w-px bg-gray-300"></div>
 
         {/* Lists */}
         <Button
           variant="ghost"
           size="sm"
           onClick={() => editor.chain().focus().toggleBulletList().run()}
-          className={`toolbar-button ${editor.isActive('bulletList') ? 'active bg-primary text-primary-foreground' : ''}`}
+          className={`toolbar-button ${editor.isActive("bulletList") ? "active bg-primary text-primary-foreground" : ""}`}
         >
-          <List className="w-4 h-4" />
+          <List className="h-4 w-4" />
         </Button>
         <Button
           variant="ghost"
           size="sm"
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
-          className={`toolbar-button ${editor.isActive('orderedList') ? 'active bg-primary text-primary-foreground' : ''}`}
+          className={`toolbar-button ${editor.isActive("orderedList") ? "active bg-primary text-primary-foreground" : ""}`}
         >
-          <ListOrdered className="w-4 h-4" />
+          <ListOrdered className="h-4 w-4" />
         </Button>
 
         {/* Step 2 Only: Code Tools */}
         {step === 2 && (
           <>
-            <div className="w-px h-6 bg-gray-300 mx-2"></div>
+            <div className="mx-2 h-6 w-px bg-gray-300"></div>
             <Button
               variant="ghost"
               size="sm"
               onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-              className={`toolbar-button ${editor.isActive('codeBlock') ? 'active bg-primary text-primary-foreground' : ''}`}
+              className={`toolbar-button ${editor.isActive("codeBlock") ? "active bg-primary text-primary-foreground" : ""}`}
             >
-              <Code className="w-4 h-4" />
+              <Code className="h-4 w-4" />
             </Button>
             <Button
               variant="ghost"
               size="sm"
               onClick={() => editor.chain().focus().toggleCode().run()}
-              className={`toolbar-button ${editor.isActive('code') ? 'active bg-primary text-primary-foreground' : ''}`}
+              className={`toolbar-button ${editor.isActive("code") ? "active bg-primary text-primary-foreground" : ""}`}
             >
-              <Terminal className="w-4 h-4" />
+              <Terminal className="h-4 w-4" />
             </Button>
           </>
         )}
@@ -206,7 +206,7 @@ export default function Toolbar({ editor, step }: ToolbarProps) {
         {/* More Options */}
         <div className="ml-auto flex items-center space-x-2">
           <Button variant="ghost" size="sm" className="toolbar-button">
-            <MoreHorizontal className="w-4 h-4" />
+            <MoreHorizontal className="h-4 w-4" />
           </Button>
         </div>
       </div>
