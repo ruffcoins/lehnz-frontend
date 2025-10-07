@@ -1,4 +1,4 @@
-# Cursor Project Rules — Pure Engineering (Lean Version)
+<!-- # Cursor Project Rules — Pure Engineering (Lean Version)
 
 ## 1. Project Overview
 
@@ -72,4 +72,4 @@ export const useGuides = () => useQuery(["guides"], getGuides);
 **Page:** Guides List page with search, filter, grid of `GuideCard`, responsive.
 **Component:** `GuideCard` with props (title, author, difficulty, rating), uses Card, skeleton variant.
 **Service + Hook:** `guides.service.ts` + `useGuides.ts` with axios + react-query.
-**Admin Panel:** List pending guides, Accept/Reject actions, confirmation modals, update cache.
+**Admin Panel:** List pending guides, Accept/Reject actions, confirmation modals, update cache. -->

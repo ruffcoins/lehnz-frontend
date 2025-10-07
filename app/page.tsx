@@ -1,14 +1,28 @@
-// import { DiveIntoYourInterestsDialog } from '@/features/onboarding/components/DiveIntoYourInterests'
-import EnterEmail from "@/features/onboarding/components/EnterEmail";
 import React from "react";
+import {
+  Hero,
+  FeaturedGuides,
+  ValueProposition,
+  TopicsSection,
+  Newsletter,
+  CTASection,
+  Navbar,
+  Footer,
+} from "@/features/home";
 
-const page = () => {
+export default function HomePage() {
   return (
-    <div>
-      {/* <DiveIntoYourInterestsDialog /> */}
-      <EnterEmail />
+    <div className="min-h-screen">
+      <Navbar />
+      <main>
+        <Hero />
+        <FeaturedGuides />
+        <ValueProposition />
+        <TopicsSection />
+        <Newsletter />
+        <CTASection />
+      </main>
+      <Footer />
     </div>
   );
-};
-
-export default page;
+}

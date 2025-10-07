@@ -4,8 +4,9 @@ import QueryProvider from "@/features/shared/providers/QueryProvider";
 import { Work_Sans } from "next/font/google";
 
 export const metadata: Metadata = {
-  title: "Lehnz",
-  description: "Lehnz application",
+  title: "Pure Engineering | The Gold Standard of AI Engineering",
+  description:
+    "Guides, patterns, and architectures vetted by industry engineers. Production-ready AI/ML content that helps you build the right way, every time.",
 };
 
 const worksans = Work_Sans({
