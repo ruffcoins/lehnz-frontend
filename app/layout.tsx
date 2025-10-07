@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import QueryProvider from "@/components/providers/QueryProvider";
+import QueryProvider from "@/features/shared/providers/QueryProvider";
 import { Work_Sans } from "next/font/google";
 
 export const metadata: Metadata = {

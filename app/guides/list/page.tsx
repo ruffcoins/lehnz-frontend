@@ -1,11 +1,11 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Button } from "@/features/shared/ui/button";
+import { Card, CardContent } from "@/features/shared/ui/card";
+import { Badge } from "@/features/shared/ui/badge";
 import { Plus, Clock, Edit } from "lucide-react";
-import { apiRequest } from "../create/page";
+import { apiRequest } from "@/features/shared/utils/api";
 
 export interface Guide {
   id: string;

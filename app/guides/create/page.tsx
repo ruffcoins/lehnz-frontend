@@ -1,13 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
 
-import { useCreateGuide } from "@/hooks/useCreateGuide";
-import GuideHeader from "@/components/GuideHeader";
-import StepProgress from "@/components/StepProgress";
-import TipTapEditor from "@/components/editor/TipTapEditor";
-import PreviewModal from "@/components/PreviewModal";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { useCreateGuide } from "@/features/guides/hooks/useCreateGuide";
+import GuideHeader from "@/features/guides/components/GuideHeader";
+import StepProgress from "@/features/shared/ui/StepProgress";
+import TipTapEditor from "@/features/guides/components/editor/TipTapEditor";
+import PreviewModal from "@/features/guides/components/PreviewModal";
+import { Input } from "@/features/shared/ui/input";
+import { Button } from "@/features/shared/ui/button";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 

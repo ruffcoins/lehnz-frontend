@@ -1,5 +1,5 @@
-// import { DiveIntoYourInterestsDialog } from '@/components/onboarding/DiveIntoYourInterests'
-import EnterEmail from "@/components/onboarding/EnterEmail";
+// import { DiveIntoYourInterestsDialog } from '@/features/onboarding/components/DiveIntoYourInterests'
+import EnterEmail from "@/features/onboarding/components/EnterEmail";
 import React from "react";
 
 const page = () => {

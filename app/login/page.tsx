@@ -1,11 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useLoginForm } from "@/hooks/useLoginForm";
-import LoginForm from "@/components/login/LoginForm";
-import SocialLogins from "@/components/login/SocialLogins";
-import DemoAlert from "@/components/login/DemoAlert";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/features/shared/ui/card";
+import { useLoginForm } from "@/features/auth/hooks/useLoginForm";
+import LoginForm from "@/features/auth/components/login/LoginForm";
+import SocialLogins from "@/features/auth/components/login/SocialLogins";
+import DemoAlert from "@/features/auth/components/login/DemoAlert";
 
 export default function LoginPage() {
   const {

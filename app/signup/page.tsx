@@ -1,13 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useSignupForm } from "@/hooks/useSignupForm";
-import ProgressIndicator from "@/components/signup/ProgressIndicator";
-import RoleSelectionStep from "@/components/signup/RoleSelectionStep";
-import BasicInfoStep from "@/components/signup/BasicInfoStep";
-import ProfessionalInfoStep from "@/components/signup/ProfessionalInfoStep";
-import FinalDetailsStep from "@/components/signup/FinalDetailsStep";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/features/shared/ui/card";
+import { useSignupForm } from "@/features/auth/hooks/useSignupForm";
+import ProgressIndicator from "@/features/auth/components/signup/ProgressIndicator";
+import RoleSelectionStep from "@/features/auth/components/signup/RoleSelectionStep";
+import BasicInfoStep from "@/features/auth/components/signup/BasicInfoStep";
+import ProfessionalInfoStep from "@/features/auth/components/signup/ProfessionalInfoStep";
+import FinalDetailsStep from "@/features/auth/components/signup/FinalDetailsStep";
 
 export default function SignUpPage() {
   const {
