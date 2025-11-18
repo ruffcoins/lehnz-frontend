@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignupFormData, signupSchema } from "@/features/auth/utils/validators";
 import { ROLES } from "@/features/shared/utils/consts";
+import { apiRequest } from "@/features/shared/utils/api";
+import { useAuth } from "./useAuth";
 
 export type SignupRole = ROLES.CREATOR | ROLES.USER | "";
 
@@ -13,6 +15,7 @@ export function useSignupForm() {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedTechStack, setSelectedTechStack] = useState<string[]>([]);
   const [selectedAiMlStack, setSelectedAiMlStack] = useState<string[]>([]);
+  const { signIn } = useAuth();
 
   // Form instance
   const form = useForm<SignupFormData>({
@@ -27,11 +30,10 @@ export function useSignupForm() {
     setIsSubmitting(true);
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      const response = await apiRequest("POST", "/api/auth/signup", data);
+      const userData = await response.json();
 
-      console.log("Form submitted:", data);
-      // Here you would typically make an API call to create the user account
+      signIn(userData.user);
 
       alert("Account created successfully!");
       handleReset();

@@ -2,10 +2,13 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginFormData, loginSchema } from "@/features/auth/utils/validators";
+import { apiRequest } from "@/features/shared/utils/api";
+import { useAuth } from "./useAuth";
 
 export function useLoginForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const { signIn } = useAuth();
 
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
@@ -23,19 +26,12 @@ export function useLoginForm() {
     setIsSubmitting(true);
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const response = await apiRequest("POST", "/api/auth/login", data);
+      const userData = await response.json();
 
-      console.log("Login data:", data);
-      // Here you would typically make an API call to authenticate the user
+      signIn(userData.user);
 
-      // For demo purposes, let's simulate success
       alert(`Login successful! Welcome back, ${data.email}`);
-
-      // In a real app, you would:
-      // 1. Store auth tokens
-      // 2. Redirect to dashboard
-      // 3. Update global auth state
     } catch (error) {
       console.error("Login error:", error);
       alert("Invalid credentials. Please try again.");

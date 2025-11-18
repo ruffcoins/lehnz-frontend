@@ -1,26 +1,17 @@
 import React from "react";
-import {
-  Hero,
-  FeaturedGuides,
-  ValueProposition,
-  TopicsSection,
-  Newsletter,
-  CTASection,
-  Navbar,
-  Footer,
-} from "@/features/home";
+import { Hero, ValueProp, FeaturedGuides, Testimonials, FinalCTA } from "@/features/landing";
+import { Footer } from "@/features/home";
 
 export default function HomePage() {
   return (
     <div className="min-h-screen">
-      <Navbar />
+      {/* <Navbar /> */}
       <main>
         <Hero />
+        <ValueProp />
         <FeaturedGuides />
-        <ValueProposition />
-        <TopicsSection />
-        <Newsletter />
-        <CTASection />
+        <Testimonials />
+        <FinalCTA />
       </main>
       <Footer />
     </div>

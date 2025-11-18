@@ -1,0 +1,52 @@
+---
+alwaysApply: false
+---
+# Debugging Workflow
+
+This workflow guides the process of identifying, analyzing, and resolving technical issues.
+
+## 1. Investigate the Issue
+
+- **Understand the problem:**
+    - What is the expected behavior?
+    - What is the actual behavior?
+    - How can the issue be reproduced?
+- **Gather context:**
+    - Use search tools to find relevant keywords, error messages, or code symbols.
+    - Understand the functionality and data flow in the affected areas.
+    - Read relevant files to get a detailed understanding of the implementation.
+    - List the relevant files and code snippets.
+
+## 2. Generate Potential Root Causes
+
+- Brainstorm at least three potential root causes for the issue.
+- For each potential cause, explain the hypothesis.
+- Example:
+    - **Cause 1:** A recent change in an authentication service is causing a token validation issue.
+    - **Cause 2:** An external API dependency is returning an unexpected payload.
+    - **Cause 3:** There's a race condition when fetching user data.
+
+## 3. Assess Likelihood of Each Root Cause
+
+- For each potential root cause, assess its likelihood (e.g., High, Medium, Low).
+- Provide a brief justification for the assessment based on the investigation from step 1.
+- Prioritize the most likely root causes for further investigation.
+
+## 4. Generate Potential Solutions
+
+- For the most likely root cause(s), propose at least three potential solutions.
+- Describe each solution in detail.
+- Example:
+    - **Solution 1:** Revert the recent change in the authentication service.
+    - **Solution 2:** Add defensive code to handle the unexpected API payload gracefully.
+    - **Solution 3:** Implement a locking mechanism to prevent the race condition.
+
+## 5. Assess Solutions
+
+- Evaluate each proposed solution based on the following criteria:
+    - **Elegance:** How simple and clean is the solution?
+    - **Architectural Fit:** Does it align with the existing architecture and design patterns?
+    - **Correctness:** Does it fully solve the issue?
+    - **Maintainability:** How easy will it be to understand and maintain this code in the future?
+    - **Risk:** What is the risk of introducing new bugs with this change?
+- Recommend the best solution and provide a clear rationale for your choice.

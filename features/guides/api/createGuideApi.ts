@@ -60,7 +60,7 @@ const createGuideApi = async (params: CreateGuideParams) => {
   };
   console.log("Guide Data", guideData);
   console.log("Base API", baseApi);
-  const response = await baseApi.post("/documentation", guideData);
+  const response = await baseApi.post("/api/guides", guideData);
   return response.data;
 };
 export default createGuideApi;

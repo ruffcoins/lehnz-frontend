@@ -5,5 +5,27 @@
     "source.fixAll.eslint": "explicit"
   },
   "prettier.requireConfig": true,
-  "typescript.preferences.importModuleSpecifier": "relative"
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#8a4a28",
+    "activityBar.foreground": "#FFFFFF",
+    "activityBar.inactiveForeground": "#f5dcc9",
+    "activityBar.activeBackground": "#a3562f",
+    "activityBar.activeBorder": "#ca703c",
+    "activityBarBadge.background": "#F9A825",
+    "activityBarBadge.foreground": "#181423",
+    "titleBar.activeBackground": "#ca703c",
+    "titleBar.activeForeground": "#FFFFFF",
+    "titleBar.inactiveBackground": "#a3562f",
+    "titleBar.inactiveForeground": "#f5dcc9",
+    "statusBar.background": "#ca703c",
+    "statusBar.foreground": "#FFFFFF",
+    "statusBar.noFolderBackground": "#a3562f",
+    "statusBar.debuggingBackground": "#F9A825",
+    "statusBar.debuggingForeground": "#181423",
+    "tab.activeForeground": "#ffffff",
+    "tab.inactiveForeground": "#6b4530",
+    "tab.activeBorder": "#ca703c",
+    "tab.activeBorderTop": "#ca703c"
+  }
 }

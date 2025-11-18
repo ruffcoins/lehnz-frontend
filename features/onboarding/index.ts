@@ -1,4 +1,1 @@
-// Onboarding Components
-export { DiveIntoYourInterestsDialog } from "./components/DiveIntoYourInterests";
-export { default as EnterEmail } from "./components/EnterEmail";
-// export { CreatorsYouMightLikeDialog } from "./components/CreatorsYouMightLike";
+export { default as OnboardingHeader } from "./components/OnboardingHeader";

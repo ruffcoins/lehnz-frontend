@@ -1,0 +1,1029 @@
+{
+  "uuid": "6284e9af-5220-457b-8a2d-b87738d59fcb",
+  "name": "Lehnz API Mock",
+  "port": 4000,
+  "hostname": "",
+  "endpointPrefix": "",
+  "latency": 0,
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Authorization"
+    }
+  ],
+  "routes": [
+    {
+      "uuid": "93e4355b-d307-45ba-8a1f-6168efaf98d6",
+      "type": "http",
+      "method": "get",
+      "endpoint": "api/guides",
+      "documentation": "Retrieves a list of all technical guides.",
+      "responses": [
+        {
+          "uuid": "9208bd41-c6b5-438d-8789-b425cae21eff",
+          "statusCode": 200,
+          "label": "List of Guides",
+          "bodyType": "INLINE",
+          "body": "{\n  \"guides\": [\n    {{#repeat 10}}\n    {\n      \"id\": \"{{faker 'string.uuid'}}\",\n      \"title\": \"{{faker 'lorem.sentence'}}\",\n      \"slug\": \"{{faker 'lorem.slug'}}\",\n      \"excerpt\": \"{{faker 'lorem.paragraph'}}\",\n      \"creator\": {\n        \"id\": \"{{faker 'string.uuid'}}\",\n        \"name\": \"{{faker 'person.fullName'}}\",\n        \"avatar\": \"{{faker 'internet.avatar'}}\"\n      },\n      \"tags\": [{{#repeat 3}}\"{{faker 'hacker.noun'}}\"{{/repeat}}],\n      \"createdAt\": \"{{faker 'date.past'}}\"\n    }\n    {{/repeat}}\n  ]\n}",
+          "latency": 0,
+          "headers": [],
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "49e7e254-41f3-46d6-80b8-8cd87399772e",
+      "type": "http",
+      "method": "get",
+      "endpoint": "api/guides/:slug",
+      "documentation": "Retrieves a single guide by slug.",
+      "responses": [
+        {
+          "uuid": "04ccc720-036f-49fd-a791-e9f6f572e855",
+          "statusCode": 200,
+          "label": "Single Guide",
+          "bodyType": "INLINE",
+          "body": "{\n  \"id\": \"{{faker 'string.uuid'}}\",\n  \"title\": \"Guide for {{params.slug}}\",\n  \"slug\": \"{{params.slug}}\",\n  \"content\": \"{{faker 'lorem.paragraphs' 5}}\",\n  \"creator\": {\n    \"id\": \"{{faker 'string.uuid'}}\",\n    \"name\": \"{{faker 'person.fullName'}}\",\n    \"avatar\": \"{{faker 'internet.avatar'}}\"\n  },\n  \"tags\": [{{#repeat 3}}\"{{faker 'hacker.noun'}}\"{{/repeat}}],\n  \"createdAt\": \"{{faker 'date.past'}}\"\n}",
+          "latency": 0,
+          "headers": [],
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "aa847683-2cff-4aad-a0b8-2c1c5e27b4c0",
+      "type": "http",
+      "method": "post",
+      "endpoint": "api/guides",
+      "documentation": "Creates a new guide.",
+      "responses": [
+        {
+          "uuid": "d85ae854-4ff7-46d8-847e-16fe9896c8dd",
+          "statusCode": 201,
+          "label": "Guide Created",
+          "bodyType": "INLINE",
+          "body": "{\n  \"id\": \"{{faker 'string.uuid'}}\",\n  \"title\": \"{{body.title}}\",\n  \"slug\": \"{{faker 'lorem.slug'}}\",\n  \"message\": \"Guide created successfully.\"\n}",
+          "latency": 0,
+          "headers": [],
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "56c8a204-ff2f-40a7-ae93-b002d5dd227a",
+      "type": "http",
+      "method": "post",
+      "endpoint": "api/bookmarks",
+      "documentation": "Toggles a guide bookmark (requires guide ID and state).",
+      "responses": [
+        {
+          "uuid": "be46e495-bcfb-4fb8-88a3-9e238293c540",
+          "statusCode": 200,
+          "label": "Bookmark toggled",
+          "bodyType": "INLINE",
+          "body": "{\n  \"guideId\": \"{{body.guideId}}\",\n  \"bookmarked\": {{body.bookmarked}},\n  \"message\": \"Bookmark status updated successfully.\"\n}",
+          "latency": 0,
+          "headers": [],
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "7f0ff601-d0b9-4d19-80cc-def2a7cfd701",
+      "type": "http",
+      "method": "get",
+      "endpoint": "api/bookmarks",
+      "documentation": "Retrieves bookmarked guides.",
+      "responses": [
+        {
+          "uuid": "41a1f71e-6d53-4eb2-a61b-22b4b1fc0ec7",
+          "statusCode": 200,
+          "label": "Bookmarked Guides",
+          "bodyType": "INLINE",
+          "body": "{\n  \"bookmarks\": [\n    {{#repeat 5}}\n    {\n      \"id\": \"{{faker 'string.uuid'}}\",\n      \"title\": \"{{faker 'lorem.sentence'}}\",\n      \"slug\": \"{{faker 'lorem.slug'}}\",\n      \"creator\": {\n        \"id\": \"{{faker 'string.uuid'}}\",\n        \"name\": \"{{faker 'person.fullName'}}\"\n      }\n    }\n    {{/repeat}}\n  ]\n}",
+          "latency": 0,
+          "headers": [],
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "98dbaf2b-78a3-4a8c-90c8-10eda555ad43",
+      "type": "http",
+      "method": "post",
+      "endpoint": "api/follow",
+      "documentation": "Toggles following a creator.",
+      "responses": [
+        {
+          "uuid": "6941c2cb-b988-4043-b64c-588fc877fc98",
+          "statusCode": 200,
+          "label": "Follow toggled",
+          "bodyType": "INLINE",
+          "body": "{\n  \"creatorId\": \"{{body.creatorId}}\",\n  \"following\": {{body.following}},\n  \"message\": \"Follow status updated successfully.\"\n}",
+          "latency": 0,
+          "headers": [],
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "bc6283f7-97f1-49fc-bd65-12c8a05bc2fc",
+      "type": "http",
+      "method": "post",
+      "endpoint": "api/comments",
+      "documentation": "Adds a new comment to a guide.",
+      "responses": [
+        {
+          "uuid": "d2c976cb-2de2-44a5-a310-2b774b8ed294",
+          "statusCode": 201,
+          "label": "Comment added",
+          "bodyType": "INLINE",
+          "body": "{\n  \"id\": \"{{faker 'string.uuid'}}\",\n  \"guideId\": \"{{body.guideId}}\",\n  \"content\": \"{{body.content}}\",\n  \"author\": {\n    \"id\": \"{{faker 'string.uuid'}}\",\n    \"name\": \"{{faker 'person.fullName'}}\"\n  },\n  \"createdAt\": \"{{faker 'date.recent'}}\"\n}",
+          "latency": 0,
+          "headers": [],
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "2ab3e7f5-44ce-4370-8c97-ab0dc9f5c6a6",
+      "type": "http",
+      "method": "get",
+      "endpoint": "api/creators/top",
+      "documentation": "Retrieves top content creators.",
+      "responses": [
+        {
+          "uuid": "fa95ed75-9b43-4337-b9ab-9b577935363f",
+          "statusCode": 200,
+          "label": "Top Creators List",
+          "bodyType": "INLINE",
+          "body": "{\n  \"creators\": [\n    {{#repeat 5}}\n    {\n      \"id\": \"{{faker 'string.uuid'}}\",\n      \"name\": \"{{faker 'person.fullName'}}\",\n      \"avatar\": \"{{faker 'internet.avatar'}}\",\n      \"followers\": {{faker 'number.int' 5000}},\n      \"guides\": {{faker 'number.int' 25}}\n    }\n    {{/repeat}}\n  ]\n}",
+          "latency": 0,
+          "headers": [],
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+      "type": "http",
+      "method": "post",
+      "endpoint": "api/auth/login",
+      "documentation": "User login.",
+      "responses": [
+        {
+          "uuid": "b2c3d4e5-f6a7-8901-2345-67890abcdef1",
+          "statusCode": 200,
+          "label": "Login Success",
+          "bodyType": "INLINE",
+          "body": "{\n  \"token\": \"{{faker 'string.uuid'}}\",\n  \"user\": {\n    \"id\": \"{{faker 'string.uuid'}}\",\n    \"name\": null,\n    \"email\": \"{{body.email}}\"\n  }\n}",
+          "latency": 0,
+          "headers": [],
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "b2c3d4e5-f6a7-8901-2345-67890abcdef2",
+      "type": "http",
+      "method": "post",
+      "endpoint": "api/auth/signup",
+      "documentation": "User signup.",
+      "responses": [
+        {
+          "uuid": "c3d4e5f6-a7b8-9012-3456-7890abcdef12",
+          "statusCode": 201,
+          "label": "Signup Success",
+          "bodyType": "INLINE",
+          "body": "{\n  \"message\": \"User created successfully.\",\n  \"user\": {\n    \"id\": \"{{faker 'string.uuid'}}\",\n    \"name\": \"{{body.name}}\",\n    \"email\": \"{{body.email}}\"\n  }\n}",
+          "latency": 0,
+          "headers": [],
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "91ac1703-cd73-4cde-b80f-aa5ed49f384f",
+      "type": "http",
+      "method": "post",
+      "endpoint": "api/auth/send-email-verification-link",
+      "documentation": "Sends an email verification link.",
+      "responses": [
+        {
+          "uuid": "d4e5f6a7-b8c9-0123-4567-890abcdef123",
+          "statusCode": 200,
+          "label": "Email Sent",
+          "bodyType": "INLINE",
+          "body": "{\n  \"message\": \"Email verification link sent successfully.\"\n}",
+          "latency": 0,
+          "headers": [],
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "47b70c64-e40d-41dc-aa7f-a6c4e3367c43",
+      "type": "http",
+      "method": "get",
+      "endpoint": "api/health",
+      "documentation": "Health check endpoint.",
+      "responses": [
+        {
+          "uuid": "e5f6a7b8-c9d0-1234-5678-90abcdef1234",
+          "statusCode": 200,
+          "label": "Health OK",
+          "bodyType": "INLINE",
+          "body": "{ \"status\": \"ok\", \"timestamp\": \"{{now}}\" }",
+          "latency": 0,
+          "headers": [],
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "e6f7b8c9-d0e1-2345-6789-0abcdef12345",
+      "type": "http",
+      "method": "put",
+      "endpoint": "api/users/:userId/onboarding",
+      "documentation": "Updates user role and profile during onboarding.",
+      "responses": [
+        {
+          "uuid": "f7a8b9c0-d1e2-3456-7890-abcdef123456",
+          "statusCode": 200,
+          "label": "Onboarding Complete",
+          "bodyType": "INLINE",
+          "body": "{\n  \"message\": \"User onboarding completed successfully.\",\n  \"user\": {\n    \"id\": \"{{url 'userId'}}\",\n    \"name\": \"{{body 'name'}}\",\n    \"role\": \"{{body 'role'}}\",\n    \"interests\": {{body 'interests'}},\n    \"bio\": \"{{body 'bio'}}\",\n    \"github\": \"{{body 'github'}}\",\n    \"linkedin\": \"{{body 'linkedin'}}\"\n  }\n}",
+          "latency": 0,
+          "headers": [],
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "f0f8f8f8-f8f8-4f8f-8f8f-f8f8f8f8f8f8",
+      "type": "http",
+      "method": "post",
+      "endpoint": "api/auth/forgot-password",
+      "documentation": "Sends a password reset link to the user's email.",
+      "responses": [
+        {
+          "uuid": "e1e1e1e1-e1e1-4e1e-8e1e-e1e1e1e1e1e1",
+          "statusCode": 200,
+          "label": "Password Reset Email Sent",
+          "bodyType": "INLINE",
+          "body": "{\n  \"message\": \"If an account with that email exists, a password reset link has been sent.\"\n}",
+          "latency": 0,
+          "headers": [],
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "d2d2d2d2-d2d2-4d2d-8d2d-d2d2d2d2d2d2",
+      "type": "http",
+      "method": "post",
+      "endpoint": "api/auth/reset-password",
+      "documentation": "Resets the user's password using a token.",
+      "responses": [
+        {
+          "uuid": "c3c3c3c3-c3c3-4c3c-8c3c-c3c3c3c3c3c3",
+          "statusCode": 200,
+          "label": "Password Reset Successful",
+          "bodyType": "INLINE",
+          "body": "{\n  \"message\": \"Your password has been reset successfully.\"\n}",
+          "latency": 0,
+          "headers": [],
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "b4b4b4b4-b4b4-4b4b-8b4b-b4b4b4b4b4b4",
+      "type": "http",
+      "method": "get",
+      "endpoint": "api/users/profile",
+      "documentation": "Retrieves the logged-in user's profile.",
+      "responses": [
+        {
+          "uuid": "a5a5a5a5-a5a5-4a5a-8a5a-a5a5a5a5a5a5",
+          "statusCode": 200,
+          "label": "User Profile",
+          "bodyType": "INLINE",
+          "body": "{\n  \"id\": \"{{faker 'string.uuid'}}\",\n  \"name\": \"{{faker 'person.fullName'}}\",\n  \"email\": \"{{faker 'internet.email'}}\",\n  \"bio\": \"{{faker 'lorem.sentence'}}\",\n  \"avatar\": \"{{faker 'internet.avatar'}}\"\n}",
+          "latency": 0,
+          "headers": [],
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "96969696-9696-4969-8969-969696969696",
+      "type": "http",
+      "method": "put",
+      "endpoint": "api/users/profile",
+      "documentation": "Updates the logged-in user's profile.",
+      "responses": [
+        {
+          "uuid": "87878787-8787-4878-8878-878787878787",
+          "statusCode": 200,
+          "label": "Profile Updated",
+          "bodyType": "INLINE",
+          "body": "{\n  \"message\": \"Profile updated successfully.\"\n}",
+          "latency": 0,
+          "headers": [],
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "78787878-7878-4787-8787-787878787878",
+      "type": "http",
+      "method": "post",
+      "endpoint": "api/auth/logout",
+      "documentation": "Logs the user out.",
+      "responses": [
+        {
+          "uuid": "69696969-6969-4696-8696-696969696969",
+          "statusCode": 200,
+          "label": "Logout Successful",
+          "bodyType": "INLINE",
+          "body": "{\n  \"message\": \"You have been logged out successfully.\"\n}",
+          "latency": 0,
+          "headers": [],
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "5a5a5a5a-5a5a-45a5-85a5-5a5a5a5a5a5a",
+      "type": "http",
+      "method": "put",
+      "endpoint": "api/guides/:guideId",
+      "documentation": "Updates an existing guide.",
+      "responses": [
+        {
+          "uuid": "4b4b4b4b-4b4b-44b4-84b4-4b4b4b4b4b4b",
+          "statusCode": 200,
+          "label": "Guide Updated",
+          "bodyType": "INLINE",
+          "body": "{\n  \"message\": \"Guide updated successfully.\",\n  \"guideId\": \"{{params.guideId}}\"\n}",
+          "latency": 0,
+          "headers": [],
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "3c3c3c3c-3c3c-43c3-83c3-3c3c3c3c3c3c",
+      "type": "http",
+      "method": "delete",
+      "endpoint": "api/guides/:guideId",
+      "documentation": "Deletes a guide.",
+      "responses": [
+        {
+          "uuid": "2d2d2d2d-2d2d-42d2-82d2-2d2d2d2d2d2d",
+          "statusCode": 200,
+          "label": "Guide Deleted",
+          "bodyType": "INLINE",
+          "body": "{\n  \"message\": \"Guide deleted successfully.\"\n}",
+          "latency": 0,
+          "headers": [],
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "1e1e1e1e-1e1e-41e1-81e1-1e1e1e1e1e1e",
+      "type": "http",
+      "method": "get",
+      "endpoint": "api/creators/me/guides",
+      "documentation": "Retrieves all guides by the logged-in creator.",
+      "responses": [
+        {
+          "uuid": "0f0f0f0f-0f0f-40f0-80f0-0f0f0f0f0f0f",
+          "statusCode": 200,
+          "label": "Creator's Guides",
+          "bodyType": "INLINE",
+          "body": "{\n  \"guides\": [\n    {{#repeat 5}}\n    {\n      \"id\": \"{{faker 'string.uuid'}}\",\n      \"title\": \"{{faker 'lorem.sentence'}}\",\n      \"slug\": \"{{faker 'lorem.slug'}}\",\n      \"excerpt\": \"{{faker 'lorem.paragraph'}}\",\n      \"createdAt\": \"{{faker 'date.past'}}\"\n    }\n    {{/repeat}}\n  ]\n}",
+          "latency": 0,
+          "headers": [],
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "dededede-dede-4ded-aded-dededededede",
+      "type": "http",
+      "method": "get",
+      "endpoint": "api/search",
+      "documentation": "Searches for guides and creators.",
+      "responses": [
+        {
+          "uuid": "cfcfcfcf-cfcf-4cfc-acfc-cfcfcfcfcfcf",
+          "statusCode": 200,
+          "label": "Search Results",
+          "bodyType": "INLINE",
+          "body": "{\n  \"query\": \"{{query.q}}\",\n  \"results\": {\n    \"guides\": [\n      {{#repeat 3}}\n      {\n        \"id\": \"{{faker 'string.uuid'}}\",\n        \"title\": \"{{faker 'lorem.sentence'}}\",\n        \"slug\": \"{{faker 'lorem.slug'}}\"\n      }\n      {{/repeat}}\n    ],\n    \"creators\": [\n      {{#repeat 2}}\n      {\n        \"id\": \"{{faker 'string.uuid'}}\",\n        \"name\": \"{{faker 'person.fullName'}}\",\n        \"avatar\": \"{{faker 'internet.avatar'}}\"\n      }\n      {{/repeat}}\n    ]\n  }\n}",
+          "latency": 0,
+          "headers": [],
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "babababa-baba-4bab-abab-babababababa",
+      "type": "http",
+      "method": "get",
+      "endpoint": "api/guides/:guideId/comments",
+      "documentation": "Retrieves all comments for a guide.",
+      "responses": [
+        {
+          "uuid": "adadadad-adad-4ada-8dad-adadadadadad",
+          "statusCode": 200,
+          "label": "Guide Comments",
+          "bodyType": "INLINE",
+          "body": "{\n  \"comments\": [\n    {{#repeat 5}}\n    {\n      \"id\": \"{{faker 'string.uuid'}}\",\n      \"content\": \"{{faker 'lorem.sentence'}}\",\n      \"author\": {\n        \"id\": \"{{faker 'string.uuid'}}\",\n        \"name\": \"{{faker 'person.fullName'}}\",\n        \"avatar\": \"{{faker 'internet.avatar'}}\"\n      },\n      \"createdAt\": \"{{faker 'date.past'}}\"\n    }\n    {{/repeat}}\n  ]\n}",
+          "latency": 0,
+          "headers": [],
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "9c9c9c9c-9c9c-49c9-89c9-9c9c9c9c9c9c",
+      "type": "http",
+      "method": "get",
+      "endpoint": "api/tags",
+      "documentation": "Retrieves all tags.",
+      "responses": [
+        {
+          "uuid": "8d8d8d8d-8d8d-48d8-88d8-8d8d8d8d8d8d",
+          "statusCode": 200,
+          "label": "All Tags",
+          "bodyType": "INLINE",
+          "body": "{\n  \"tags\": [\n    {{#repeat 10}}\n    {\n      \"name\": \"{{faker 'hacker.noun'}}\",\n      \"slug\": \"{{faker 'lorem.slug'}}\"\n    }\n    {{/repeat}}\n  ]\n}",
+          "latency": 0,
+          "headers": [],
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "7e7e7e7e-7e7e-47e7-87e7-7e7e7e7e7e7e",
+      "type": "http",
+      "method": "get",
+      "endpoint": "api/tags/:slug/guides",
+      "documentation": "Retrieves all guides for a specific tag.",
+      "responses": [
+        {
+          "uuid": "6f6f6f6f-6f6f-46f6-86f6-6f6f6f6f6f6f",
+          "statusCode": 200,
+          "label": "Guides by Tag",
+          "bodyType": "INLINE",
+          "body": "{\n  \"tag\": \"{{params.slug}}\",\n  \"guides\": [\n    {{#repeat 5}}\n    {\n      \"id\": \"{{faker 'string.uuid'}}\",\n      \"title\": \"{{faker 'lorem.sentence'}}\",\n      \"slug\": \"{{faker 'lorem.slug'}}\",\n      \"excerpt\": \"{{faker 'lorem.paragraph'}}\"\n    }\n    {{/repeat}}\n  ]\n}",
+          "latency": 0,
+          "headers": [],
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "800b3d3f-f04b-4d69-802a-6c7d0bf8aadf",
+      "type": "http",
+      "method": "get",
+      "endpoint": "api/feed",
+      "documentation": "Retrieves the user's personalized feed.",
+      "responses": [
+        {
+          "uuid": "4262cda0-1488-4505-903c-947b00a8ce6d",
+          "statusCode": 200,
+          "label": "Personalized Feed",
+          "bodyType": "INLINE",
+          "body": "{\n  \"feed\": [\n    {{#repeat 10}}\n    {\n      \"id\": \"{{faker 'string.uuid'}}\",\n      \"title\": \"{{faker 'lorem.sentence'}}\",\n      \"slug\": \"{{faker 'lorem.slug'}}\",\n      \"excerpt\": \"{{faker 'lorem.paragraph'}}\",\n      \"creator\": {\n        \"id\": \"{{faker 'string.uuid'}}\",\n        \"name\": \"{{faker 'person.fullName'}}\",\n        \"avatar\": \"{{faker 'internet.avatar'}}\"\n      },\n      \"createdAt\": \"{{faker 'date.recent'}}\"\n    }\n    {{/repeat}}\n  ]\n}",
+          "latency": 0,
+          "headers": [],
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "2a3dc712-4a5a-40d8-b9fe-9103b75bf72f",
+      "type": "http",
+      "method": "get",
+      "endpoint": "api/users/me/following",
+      "documentation": "Retrieves the list of creators the user is following.",
+      "responses": [
+        {
+          "uuid": "7eb0b72d-4dc4-41d8-bba8-2dd0987c840c",
+          "statusCode": 200,
+          "label": "Following List",
+          "bodyType": "INLINE",
+          "body": "{\n  \"following\": [\n    {{#repeat 7}}\n    {\n      \"id\": \"{{faker 'string.uuid'}}\",\n      \"name\": \"{{faker 'person.fullName'}}\",\n      \"avatar\": \"{{faker 'internet.avatar'}}\"\n    }\n    {{/repeat}}\n  ]\n}",
+          "latency": 0,
+          "headers": [],
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "f08116bb-0f86-47df-83a3-252e9d281152",
+      "type": "http",
+      "method": "get",
+      "endpoint": "api/creators/:creatorId",
+      "documentation": "Retrieves a creator's public profile and guides.",
+      "responses": [
+        {
+          "uuid": "f8b8fd91-3b56-47a6-b550-389090c88e1a",
+          "statusCode": 200,
+          "label": "Creator Profile",
+          "bodyType": "INLINE",
+          "body": "{\n  \"creator\": {\n    \"id\": \"{{params.creatorId}}\",\n    \"name\": \"{{faker 'person.fullName'}}\",\n    \"avatar\": \"{{faker 'internet.avatar'}}\",\n    \"bio\": \"{{faker 'lorem.paragraph'}}\",\n    \"followers\": {{faker 'number.int' 10000}}\n  },\n  \"guides\": [\n    {{#repeat 8}}\n    {\n      \"id\": \"{{faker 'string.uuid'}}\",\n      \"title\": \"{{faker 'lorem.sentence'}}\",\n      \"slug\": \"{{faker 'lorem.slug'}}\"\n    }\n    {{/repeat}}\n  ]\n}",
+          "latency": 0,
+          "headers": [],
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    }
+  ],
+  "lastMigration": 33,
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "93e4355b-d307-45ba-8a1f-6168efaf98d6"
+    },
+    {
+      "type": "route",
+      "uuid": "49e7e254-41f3-46d6-80b8-8cd87399772e"
+    },
+    {
+      "type": "route",
+      "uuid": "aa847683-2cff-4aad-a0b8-2c1c5e27b4c0"
+    },
+    {
+      "type": "route",
+      "uuid": "56c8a204-ff2f-40a7-ae93-b002d5dd227a"
+    },
+    {
+      "type": "route",
+      "uuid": "7f0ff601-d0b9-4d19-80cc-def2a7cfd701"
+    },
+    {
+      "type": "route",
+      "uuid": "98dbaf2b-78a3-4a8c-90c8-10eda555ad43"
+    },
+    {
+      "type": "route",
+      "uuid": "bc6283f7-97f1-49fc-bd65-12c8a05bc2fc"
+    },
+    {
+      "type": "route",
+      "uuid": "2ab3e7f5-44ce-4370-8c97-ab0dc9f5c6a6"
+    },
+    {
+      "type": "route",
+      "uuid": "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+    },
+    {
+      "type": "route",
+      "uuid": "b2c3d4e5-f6a7-8901-2345-67890abcdef2"
+    },
+    {
+      "type": "route",
+      "uuid": "91ac1703-cd73-4cde-b80f-aa5ed49f384f"
+    },
+    {
+      "type": "route",
+      "uuid": "47b70c64-e40d-41dc-aa7f-a6c4e3367c43"
+    },
+    {
+      "type": "route",
+      "uuid": "e6f7b8c9-d0e1-2345-6789-0abcdef12345"
+    },
+    {
+      "type": "route",
+      "uuid": "f0f8f8f8-f8f8-4f8f-8f8f-f8f8f8f8f8f8"
+    },
+    {
+      "type": "route",
+      "uuid": "d2d2d2d2-d2d2-4d2d-8d2d-d2d2d2d2d2d2"
+    },
+    {
+      "type": "route",
+      "uuid": "b4b4b4b4-b4b4-4b4b-8b4b-b4b4b4b4b4b4"
+    },
+    {
+      "type": "route",
+      "uuid": "96969696-9696-4969-8969-969696969696"
+    },
+    {
+      "type": "route",
+      "uuid": "78787878-7878-4787-8787-787878787878"
+    },
+    {
+      "type": "route",
+      "uuid": "5a5a5a5a-5a5a-45a5-85a5-5a5a5a5a5a5a"
+    },
+    {
+      "type": "route",
+      "uuid": "3c3c3c3c-3c3c-43c3-83c3-3c3c3c3c3c3c"
+    },
+    {
+      "type": "route",
+      "uuid": "1e1e1e1e-1e1e-41e1-81e1-1e1e1e1e1e1e"
+    },
+    {
+      "type": "route",
+      "uuid": "dededede-dede-4ded-aded-dededededede"
+    },
+    {
+      "type": "route",
+      "uuid": "babababa-baba-4bab-abab-babababababa"
+    },
+    {
+      "type": "route",
+      "uuid": "9c9c9c9c-9c9c-49c9-89c9-9c9c9c9c9c9c"
+    },
+    {
+      "type": "route",
+      "uuid": "7e7e7e7e-7e7e-47e7-87e7-7e7e7e7e7e7e"
+    },
+    {
+      "type": "route",
+      "uuid": "800b3d3f-f04b-4d69-802a-6c7d0bf8aadf"
+    },
+    {
+      "type": "route",
+      "uuid": "2a3dc712-4a5a-40d8-b9fe-9103b75bf72f"
+    },
+    {
+      "type": "route",
+      "uuid": "f08116bb-0f86-47df-83a3-252e9d281152"
+    }
+  ],
+  "folders": [],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "proxyReqHeaders": [],
+  "proxyResHeaders": [],
+  "data": [],
+  "callbacks": []
+}

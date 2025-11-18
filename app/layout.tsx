@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import QueryProvider from "@/features/shared/providers/QueryProvider";
-import { Work_Sans } from "next/font/google";
+import { UserProvider } from "@/features/auth/context/UserContext";
+import { Inter } from "next/font/google";
+import Navbar from "@/features/home/components/Navbar";
+import { Toaster } from "@/features/shared/ui/sonner";
 
 export const metadata: Metadata = {
-  title: "Pure Engineering | The Gold Standard of AI Engineering",
+  title: "Pure Engineering | Engineering the Future of AI — One Guide at a Time",
   description:
-    "Guides, patterns, and architectures vetted by industry engineers. Production-ready AI/ML content that helps you build the right way, every time.",
+    "Pure Engineering is where AI/ML engineers publish deep, practical guides on how models, systems, and ideas come to life — from concept to code.",
 };
 
-const worksans = Work_Sans({
+const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
@@ -21,8 +24,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={worksans.className}>
-        <QueryProvider>{children}</QueryProvider>
+      <body className={inter.className}>
+        <QueryProvider>
+          <UserProvider>
+            <Navbar />
+            {children}
+            <Toaster />
+          </UserProvider>
+        </QueryProvider>
       </body>
     </html>
   );

@@ -15,12 +15,14 @@ import {
   Strikethrough,
   Link,
   Image as ImageIcon,
+  Upload,
   List,
   ListOrdered,
   Code,
   Terminal,
   MoreHorizontal,
 } from "lucide-react";
+import { toast } from "sonner";
 
 interface ToolbarProps {
   editor: Editor;
@@ -50,6 +52,51 @@ export default function Toolbar({ editor, step }: ToolbarProps) {
     }
 
     editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
+  };
+
+  const handleImageUpload = () => {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
+    input.multiple = false;
+
+    input.onchange = async event => {
+      const file = (event.target as HTMLInputElement).files?.[0];
+      if (!file) return;
+
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error("Image size must be less than 5MB");
+        return;
+      }
+
+      // Validate file type
+      if (!file.type.startsWith("image/")) {
+        toast.error("Please select a valid image file");
+        return;
+      }
+
+      try {
+        // Create a preview URL for the image
+        const imageUrl = URL.createObjectURL(file);
+
+        // Insert the image into the editor
+        editor.chain().focus().setImage({ src: imageUrl }).run();
+
+        toast.success("Image uploaded successfully");
+      } catch (error) {
+        toast.error("Failed to upload image");
+      }
+    };
+
+    input.click();
+  };
+
+  const handleImageFromURL = () => {
+    const url = window.prompt("Image URL");
+    if (url) {
+      editor.chain().focus().setImage({ src: url }).run();
+    }
   };
 
   return (
@@ -143,22 +190,37 @@ export default function Toolbar({ editor, step }: ToolbarProps) {
           size="sm"
           onClick={toggleLink}
           className={`toolbar-button ${editor.isActive("link") ? "active bg-primary text-primary-foreground" : ""}`}
+          title="Add Link"
         >
           <Link className="h-4 w-4" />
         </Button>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => {
-            const url = window.prompt("Image URL");
-            if (url) {
-              editor.chain().focus().setImage({ src: url }).run();
-            }
-          }}
-          className="toolbar-button"
-        >
-          <ImageIcon className="h-4 w-4" />
-        </Button>
+
+        {/* Image Upload Dropdown */}
+        <div className="group relative">
+          <Button variant="ghost" size="sm" className="toolbar-button" title="Add Image">
+            <ImageIcon className="h-4 w-4" />
+          </Button>
+
+          {/* Dropdown Menu */}
+          <div className="invisible absolute top-full left-0 z-50 mt-1 w-48 rounded-lg border border-gray-200 bg-white opacity-0 shadow-lg transition-all duration-200 group-hover:visible group-hover:opacity-100">
+            <div className="py-1">
+              <button
+                onClick={handleImageUpload}
+                className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm hover:bg-gray-100"
+              >
+                <Upload className="h-4 w-4" />
+                Upload from Device
+              </button>
+              <button
+                onClick={handleImageFromURL}
+                className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm hover:bg-gray-100"
+              >
+                <ImageIcon className="h-4 w-4" />
+                From URL
+              </button>
+            </div>
+          </div>
+        </div>
 
         <div className="mx-2 h-6 w-px bg-gray-300"></div>
 
